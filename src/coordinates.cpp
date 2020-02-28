@@ -6,69 +6,71 @@ void input(CubieLevelCube *cube)
 {
     string tmp_replaced_by;
     char tmp_orientation;
-    int i = 0;
     cout << "Corners: " << '\n';
-    while (i < 8)
+    for (int i = 0; i < 8; i++)
     {
         cout << i << ": ";
         cin >> tmp_replaced_by >> tmp_orientation;
 
         if (tmp_replaced_by == "URF")
-            cube->cubie[i].replaced_by = URF;
+            cube->corner[i].replaced_by = URF;
         else if (tmp_replaced_by == "UFL")
-            cube->cubie[i].replaced_by = UFL;
+            cube->corner[i].replaced_by = UFL;
         else if (tmp_replaced_by == "ULB")
-            cube->cubie[i].replaced_by = ULB;
+            cube->corner[i].replaced_by = ULB;
         else if (tmp_replaced_by == "UBR")
-            cube->cubie[i].replaced_by = UBR;
+            cube->corner[i].replaced_by = UBR;
         else if (tmp_replaced_by == "DFR")
-            cube->cubie[i].replaced_by = DFR;
+            cube->corner[i].replaced_by = DFR;
         else if (tmp_replaced_by == "DLF")
-            cube->cubie[i].replaced_by = DLF;
+            cube->corner[i].replaced_by = DLF;
         else if (tmp_replaced_by == "DBL")
-            cube->cubie[i].replaced_by = DBL;
+            cube->corner[i].replaced_by = DBL;
         else if (tmp_replaced_by == "DRB")
-            cube->cubie[i].replaced_by = DRB;
+            cube->corner[i].replaced_by = DRB;
         else
             cout << "Pogresan unos!" << '\n';
 
-        cube->cubie[i].orientation = tmp_orientation;
-        i++;
+        cube->corner[i].orientation = tmp_orientation;
     }
     cout << "Edges: " << '\n';
-    while (i < 20)
+    for (int i = 0; i < 12; i++)
     {
-        cout << i - 8 << ": ";
+        cout << i << ": ";
         cin >> tmp_replaced_by >> tmp_orientation;
 
         if (tmp_replaced_by == "UR")
-            cube->cubie[i].replaced_by = UR;
+            cube->edge[i].replaced_by = UR;
         else if (tmp_replaced_by == "UF")
-            cube->cubie[i].replaced_by = UF;
+            cube->edge[i].replaced_by = UF;
         else if (tmp_replaced_by == "UL")
-            cube->cubie[i].replaced_by = UL;
+            cube->edge[i].replaced_by = UL;
         else if (tmp_replaced_by == "UB")
-            cube->cubie[i].replaced_by = UB;
+            cube->edge[i].replaced_by = UB;
         else if (tmp_replaced_by == "DR")
-            cube->cubie[i].replaced_by = DR;
+            cube->edge[i].replaced_by = DR;
         else if (tmp_replaced_by == "DF")
-            cube->cubie[i].replaced_by = DF;
+            cube->edge[i].replaced_by = DF;
         else if (tmp_replaced_by == "DL")
-            cube->cubie[i].replaced_by = DL;
+            cube->edge[i].replaced_by = DL;
         else if (tmp_replaced_by == "DB")
-            cube->cubie[i].replaced_by = DB;
+            cube->edge[i].replaced_by = DB;
         else if (tmp_replaced_by == "FR")
-            cube->cubie[i].replaced_by = FR;
+            cube->edge[i].replaced_by = FR;
         else if (tmp_replaced_by == "FL")
-            cube->cubie[i].replaced_by = FL;
+            cube->edge[i].replaced_by = FL;
         else if (tmp_replaced_by == "BL")
-            cube->cubie[i].replaced_by = BL;
+            cube->edge[i].replaced_by = BL;
         else if (tmp_replaced_by == "BR")
-            cube->cubie[i].replaced_by = BR;
+            cube->edge[i].replaced_by = BR;
         else
             cout << "Pogresan unos!" << '\n';
 
-        cube->cubie[i].orientation = tmp_orientation;
-        i++;
+        cube->edge[i].orientation = tmp_orientation;
     }
+}
+
+int to_corner_orientation(Corner corner[])
+{
+    
 }

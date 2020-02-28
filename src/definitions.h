@@ -4,7 +4,12 @@
 enum Corners : char { URF, UFL, ULB, UBR, DFR, DLF, DBL, DRB };
 enum Edges : char { UR, UF, UL, UB, DR, DF, DL, DB, FR, FL, BL, BR };
 
-struct Cubie
+struct Corner
+{
+    char replaced_by, orientation;  
+};
+
+struct Edge
 {
     char replaced_by, orientation;  
 };
@@ -12,7 +17,8 @@ struct Cubie
 struct CubieLevelCube
 {
     // kocka zadata u "zamenjen sa" kordinatama
-    Cubie cubie[20];
+    Corner corner[8];
+    Edge edge[12];
 };
 
 struct CordinateLevelCube
@@ -26,5 +32,7 @@ struct CordinateLevelCube
 };
 
 void input(CubieLevelCube *cube);
+
+int to_corner_orientation(Corner corner[]);
 
 #endif // CUBE_H
