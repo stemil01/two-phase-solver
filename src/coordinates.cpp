@@ -80,7 +80,7 @@ void corner_orientation_to_cubie(int corner_orientation, int cubie_corner_orient
         corner_orientation /= 3;
         sum += cubie_corner_orientation[i];
     }
-    cubie_corner_orientation[7] = (3 - sum % 3) % 3;
+    cubie_corner_orientation[7] = 3 - sum % 3;
 }
 
 void cubie_to_corner_orientation(int cubie_corner_orientation[], int *corner_orientation)
@@ -105,7 +105,7 @@ void edge_orientation_to_cubie(int edge_orientation, int cubie_edge_orientation[
         edge_orientation /= 2;
         sum += cubie_edge_orientation[i];
     }
-    cubie_edge_orientation[11] = (2 - sum % 2) % 2;
+    cubie_edge_orientation[11] = 2 - sum % 2;
 }
 
 void cubie_to_edge_orientation(int cubie_edge_orientation[], int *edge_orientation)
@@ -118,4 +118,94 @@ void cubie_to_edge_orientation(int cubie_edge_orientation[], int *edge_orientati
         deg *= 2;
     }
     *edge_orientation = res;
+}
+
+void UDslice_edge_position_to_cubie(int UDslice_edge_position, bool cubie_UDslice_edge_position[])
+{
+    int p[5], i = 1;
+    p[0] = 12;
+    for (int i = 1; i < 5; i++)
+    {
+        int ind = p[i - 1] - 1, value;
+        switch (i)
+        {
+        case 1:
+            value = ind*(ind - 1)*(ind - 2)/6;
+            break;
+        case 2:
+            value = ind*(ind - 1)/2;
+            break;
+        case 3:
+            value = ind;
+            break;
+        case 4:
+            value = 1;
+        default:
+            break;
+        }
+        while (UDslice_edge_position >= value)   
+        {
+            UDslice_edge_position -= value;
+            ind--;
+
+            switch (i)
+            {
+            case 1:
+                value = ind*(ind - 1)*(ind - 2)/6;
+                break;
+            case 2:
+                value = ind*(ind - 1)/2;
+                break;
+            case 3:
+                value = ind;
+                break;
+            case 4:
+                value = 1;
+            default:
+                break;
+            }
+        }
+        p[i] = ind;
+    }
+
+    for (int i = 0; i < 12; i++)
+    {
+        if (i == p[1] || i == p[2] || i == p[3] || i == p[4])
+            cubie_UDslice_edge_position[i] = true;
+        else
+            cubie_UDslice_edge_position[i] = false;
+    }
+}
+
+void cubie_to_UDslice_edge_position(bool cubie_UDslice_edge_postition[], int *UDslice_edge_position)
+{
+    int p[5], ind = 1, res = 0;
+    p[0] = 12;
+    for (int i = 11; i >= 0; i--)
+        if (cubie_UDslice_edge_postition[i] == true)
+            p[ind++] = i;
+    
+    for (int i = 1; i < 5; i++)
+        for (int j = p[i] + 1; j <= p[i - 1] - 1; j++)
+        {
+            int value;
+            switch (i)
+            {
+            case 1:
+                value = j*(j - 1)*(j - 2)/6;
+                break;
+            case 2:
+                value = j*(j - 1)/2;
+                break;
+            case 3:
+                value = j;
+                break;
+            case 4:
+                value = 1;
+            default:
+                break;
+            }
+            res += value;
+        }    
+    *UDslice_edge_position = res;
 }

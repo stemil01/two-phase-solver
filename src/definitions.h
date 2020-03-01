@@ -34,8 +34,8 @@ void edge_orientation_to_cubie(int edge_orientation, int cubie_edge_orientation[
 void cubie_to_edge_orientation(int cubie_edge_orientation[], int *edge_orientation);
 
 // UDslice_edge_postition
-void UDslice_edge_position_to_cubie(int UDslice_edge_position, Edges cubie_UDslice_edge_position[]);
-void cubie_to_UDslice_edge_position(Edges cubie_UDslice_edge_postition[], int *UDslice_edge_position);
+void UDslice_edge_position_to_cubie(int UDslice_edge_position, bool cubie_UDslice_edge_position[]);
+void cubie_to_UDslice_edge_position(bool cubie_UDslice_edge_postition[], int *UDslice_edge_position);
 
 // corner_permutation
 
