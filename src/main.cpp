@@ -4,25 +4,33 @@ using namespace std;
 
 int main()
 {
+    cout << Corners(0) << '\n';
     // CubieLevelCube cube;
     // input(&cube);
 
     int temp_num;
-    bool temp_arr[12] = {1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0};
+    // Corners temp_arr[8] = {URF, UFL, ULB, UBR, DFR, DLF, DBL, DRB};
+    // Corners temp_arr[8] = {DRB, DBL, DLF, DFR, UBR, ULB, UFL, URF};
+    Corners temp_arr[8] = {DBL, DRB, DLF, DFR, UBR, ULB, UFL, URF};
     
-    for (int i = 0; i < 12; i++)
+    for (int i = 0; i < 8; i++)
         cout << temp_arr[i] << " ";
     cout << '\n';
 
+    /*
     while (true)
     {
         cin >> temp_num;
-        UDslice_edge_position_to_cubie(temp_num, temp_arr);
-        for (int i = 0; i < 12; i++)
+        corner_permutation_to_cubie(temp_num, temp_arr);
+        for (int i = 0; i < 8; i++)
             cout << temp_arr[i] << " ";
         cout << '\n';
 
-        cubie_to_UDslice_edge_position(temp_arr, &temp_num);
+        cubie_to_corner_permutation(temp_arr, &temp_num);
         cout << temp_num << '\n';
     }
+    */
+
+    cubie_to_corner_permutation(temp_arr, &temp_num);
+    cout << temp_num << '\n';
 }

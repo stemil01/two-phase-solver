@@ -122,6 +122,7 @@ void cubie_to_edge_orientation(int cubie_edge_orientation[], int *edge_orientati
 
 void UDslice_edge_position_to_cubie(int UDslice_edge_position, bool cubie_UDslice_edge_position[])
 {
+    // gledamo sa desna radi jednostavnosti
     int p[5], i = 1;
     p[0] = 12;
     for (int i = 1; i < 5; i++)
@@ -179,6 +180,7 @@ void UDslice_edge_position_to_cubie(int UDslice_edge_position, bool cubie_UDslic
 
 void cubie_to_UDslice_edge_position(bool cubie_UDslice_edge_postition[], int *UDslice_edge_position)
 {
+    // gledamo sa desna radi jednostavnosti
     int p[5], ind = 1, res = 0;
     p[0] = 12;
     for (int i = 11; i >= 0; i--)
@@ -208,4 +210,64 @@ void cubie_to_UDslice_edge_position(bool cubie_UDslice_edge_postition[], int *UD
             res += value;
         }    
     *UDslice_edge_position = res;
+}
+
+void corner_permutation_to_cubie(int corner_permutation, Corners cubie_corner_permutation[])
+{
+    int digit[8], base[8];
+    digit[0] = 0;
+    base[0] = 1;
+    cubie_corner_permutation[0] = Corners(0);
+    for (int i = 1; i < 8; i++)
+    {
+        base[i] = i*base[i - 1];
+        cubie_corner_permutation[i] = Corners(0); 
+    }
+
+    for (int i = 7; i >= 1; i--)
+    {
+        digit[i] = corner_permutation / base[i];
+        corner_permutation %= base[i];
+    }
+
+    for (int i = 7; i >= 0; i--)
+    {
+        int count = 0, j = 7;
+        while (count <= digit[i])
+        {
+            int count = 0;
+            if (cubie_corner_permutation[j] < i)
+                count++;
+            j--;
+        }
+        // cubie_corner_permutation[j] = ;
+    }
+}
+
+void cubie_to_corner_permutation(Corners cubie_corner_permutation[], int *corner_permutation)
+{
+    // gledamo sa desna na levo, radi jednostavnijeg "koda"
+    int digit[8], base[8], res = 0;
+    base[0] = 1;
+    for (int i = 1; i < 8; i++)
+    {
+        digit[i] = 0;
+        base[i] = i*base[i - 1];
+    }
+
+    for (int i = 1; i < 8; i++)
+    {
+        int j = 7;
+        while (cubie_corner_permutation[j] != i)
+        {
+            if (cubie_corner_permutation[j] < i)
+                digit[i]++;
+            j--;
+        }
+    }
+
+    for (int i = 1; i < 8; i++)
+        res += digit[i]*base[i];
+
+    *corner_permutation = res;
 }

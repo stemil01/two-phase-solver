@@ -38,6 +38,8 @@ void UDslice_edge_position_to_cubie(int UDslice_edge_position, bool cubie_UDslic
 void cubie_to_UDslice_edge_position(bool cubie_UDslice_edge_postition[], int *UDslice_edge_position);
 
 // corner_permutation
+void corner_permutation_to_cubie(int corner_permutation, Corners cubie_corner_permutation[]);
+void cubie_to_corner_permutation(Corners cubie_corner_permutation[], int *corner_permutation);
 
 // UDslice_edge_permutation
 
