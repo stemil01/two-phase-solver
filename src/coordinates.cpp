@@ -214,6 +214,7 @@ void cubie_to_UDslice_edge_position(bool cubie_UDslice_edge_postition[], int *UD
 
 void corner_permutation_to_cubie(int corner_permutation, Corners cubie_corner_permutation[])
 {
+    // gledamo sa desna na levo, radi jednostavnijeg "koda"
     int digit[8], base[8];
     digit[0] = 0;
     base[0] = 1;
@@ -230,17 +231,16 @@ void corner_permutation_to_cubie(int corner_permutation, Corners cubie_corner_pe
         corner_permutation %= base[i];
     }
 
-    for (int i = 7; i >= 0; i--)
+    for (int i = 7; i >= 1; i--)
     {
-        int count = 0, j = 7;
+        int count = 0, j = 8;
         while (count <= digit[i])
         {
-            int count = 0;
+            j--;
             if (cubie_corner_permutation[j] < i)
                 count++;
-            j--;
         }
-        // cubie_corner_permutation[j] = ;
+        cubie_corner_permutation[j] = Corners(i);
     }
 }
 
