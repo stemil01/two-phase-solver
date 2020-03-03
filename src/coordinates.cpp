@@ -271,3 +271,131 @@ void cubie_to_corner_permutation(Corners cubie_corner_permutation[], int *corner
 
     *corner_permutation = res;
 }
+
+void UDslice_edge_permutation_to_cubie(int UDslice_edge_permutation, Edges cubie_UDslice_edge_permutation[])
+{
+    // gledamo sa desna na levo, radi jednostavnijeg "koda"
+    // ivice UD isecka su FR, FL, BL i BR, dakle, uzimaju vrednosti iz skupa {8, 9, 10, 11},
+    // zato uvodimo male razlike u odnosu na corner_permutation
+    int digit[12], base[4];
+    digit[8] = 0;
+    base[0] = 1;
+    cubie_UDslice_edge_permutation[0] = Edges(8);
+    for (int i = 1; i < 4; i++)
+    {
+        base[i] = i*base[i - 1];
+        cubie_UDslice_edge_permutation[i] = Edges(8);
+    }
+
+    for (int i = 11; i >= 9; i--)
+    {
+        digit[i] = UDslice_edge_permutation / base[i - 8];
+        UDslice_edge_permutation %= base[i - 8];
+    }
+
+    for (int i = 11; i >= 9; i--)
+    {
+        int count = 0, j = 4;
+        while (count <= digit[i])
+        {
+            j--;
+            if (cubie_UDslice_edge_permutation[j] < i)
+                count++;
+        }
+        cubie_UDslice_edge_permutation[j] = Edges(i);
+    }
+}
+
+void cubie_to_UDslice_edge_permutation(Edges cubie_UDslice_edge_permutation[], int *UDslice_edge_permutation)
+{
+    // gledamo sa desna na levo, radi jednostavnijeg "koda"
+    // ivice UD isecka su FR, FL, BL i BR, dakle, uzimaju vrednosti iz skupa {8, 9, 10, 11},
+    // zato uvodimo male razlike u odnosu na corner_permutation
+    int digit[12], base[4], res = 0;
+    base[0] = 1;
+    for (int i = 1; i < 4; i++)
+    {
+        digit[i + 8] = 0;
+        base[i] = i*base[i - 1];
+    }
+
+    for (int i = 9; i < 12; i++)
+    {
+        int j = 3;
+        while (cubie_UDslice_edge_permutation[j] != i)
+        {
+            if (cubie_UDslice_edge_permutation[j] < i)
+                digit[i]++;
+            j--;
+        }
+    }
+
+    for (int i = 9; i < 12; i++)
+        res += digit[i]*base[i - 8];
+
+    *UDslice_edge_permutation = res;
+}
+
+void UD_edge_permutation_to_cubie(int UD_edge_permutation, Edges cubie_UD_edge_permutation[])
+{
+    // gledamo sa desna na levo, radi jednostavnijeg "koda"
+    // UD ivice su UR, UF, UL, UB, DR, DF, DL, DB dakle, uzimaju vrednosti iz skupa {0, 1, 2, 3, 4, 5, 6, 7},
+    // zato je gotovo identicno kao corner_permutation
+    int digit[8], base[8];
+    digit[0] = 0;
+    base[0] = 1;
+    cubie_UD_edge_permutation[0] = Edges(0);
+    for (int i = 1; i < 8; i++)
+    {
+        base[i] = i*base[i - 1];
+        cubie_UD_edge_permutation[i] = Edges(0);
+    }
+
+    for (int i = 7; i >= 1; i--)
+    {
+        digit[i] = UD_edge_permutation / base[i];
+        UD_edge_permutation %= base[i];
+    }
+
+    for (int i = 7; i >= 1; i--)
+    {
+        int count = 0, j = 8;
+        while (count <= digit[i])
+        {
+            j--;
+            if (cubie_UD_edge_permutation[j] < i)
+                count++;
+        }
+        cubie_UD_edge_permutation[j] = Edges(i);
+    }
+}
+
+void cubie_to_UD_edge_permutation(Edges cubie_UD_edge_permutation[], int *UD_edge_permutation)
+{
+    // gledamo sa desna na levo, radi jednostavnijeg "koda"
+    // UD ivice su UR, UF, UL, UB, DR, DF, DL, DB dakle, uzimaju vrednosti iz skupa {0, 1, 2, 3, 4, 5, 6, 7},
+    // zato je gotovo identicno kao corner_permutation
+    int digit[8], base[8], res = 0;
+    base[0] = 1;
+    for (int i = 1; i < 8; i++)
+    {
+        digit[i] = 0;
+        base[i] = i*base[i - 1];
+    }
+
+    for (int i = 1; i < 8; i++)
+    {
+        int j = 7;
+        while (cubie_UD_edge_permutation[j] != i)
+        {
+            if (cubie_UD_edge_permutation[j] < i)
+                digit[i]++;
+            j--;
+        }
+    }
+
+    for (int i = 1; i < 8; i++)
+        res += digit[i]*base[i];
+
+    *UD_edge_permutation = res;
+}

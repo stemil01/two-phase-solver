@@ -42,7 +42,11 @@ void corner_permutation_to_cubie(int corner_permutation, Corners cubie_corner_pe
 void cubie_to_corner_permutation(Corners cubie_corner_permutation[], int *corner_permutation);
 
 // UDslice_edge_permutation
+void UDslice_edge_permutation_to_cubie(int UDslice_edge_permutation, Edges cubie_UDslice_edge_permutation[]);
+void cubie_to_UDslice_edge_permutation(Edges cubie_UDslice_edge_permutation[], int *UDslice_edge_permutation);
 
 // UD_edge_permutation
+void UD_edge_permutation_to_cubie(int UD_edge_permutation, Edges cubie_UD_edge_permutation[]);
+void cubie_to_UD_edge_permutation(Edges cubie_to_UD_edge_permutation[], int *UD_edge_permutation);
 
 #endif // DEFINITIONs_H
