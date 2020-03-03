@@ -49,4 +49,8 @@ void cubie_to_UDslice_edge_permutation(Edges cubie_UDslice_edge_permutation[], i
 void UD_edge_permutation_to_cubie(int UD_edge_permutation, Edges cubie_UD_edge_permutation[]);
 void cubie_to_UD_edge_permutation(Edges cubie_to_UD_edge_permutation[], int *UD_edge_permutation);
 
-#endif // DEFINITIONs_H
+
+// mozda treba uzeti int
+Corners R_corner_permutation[8] = { DFR, UFL, ULB, URF, DRB, DLF, DBL, UBR }; // mozda treba uzeti int
+
+#endif // DEFINITIONS_H
