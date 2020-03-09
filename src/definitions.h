@@ -1,6 +1,13 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
+#define NUM_CORNER_ORIENTATION          2187
+#define NUM_EDGE_ORIENTATION            2048 
+#define NUM_UDSLICE_EDGE_POSITION       495
+#define NUM_CORNER_PERMUTATION          40320
+#define NUM_UDSLICE_EDGE_PERMUTATION    24
+#define NUM_UD_EDGE_PERMUTATION         40320
+
 enum Corners : int { URF, UFL, ULB, UBR, DFR, DLF, DBL, DRB };
 enum Edges : int { UR, UF, UL, UB, DR, DF, DL, DB, FR, FL, BL, BR };
 
@@ -15,12 +22,12 @@ struct CubieLevelCube
 
 struct CordinateLevelCube
 {
-    int corner_orientation;     // 0, 1, ..., 3^7-1 (ukupno 2187)
-    int corner_permutation;     // 0, 1, ..., 8!-1 (ukupno 40320)
-    int edge_orientation;       // 0, 1, ..., 2^11-1 (ukupno 2048)
+    int corner_orientation;         // 0, 1, ..., 3^7-1 (ukupno 2187)
+    int edge_orientation;           // 0, 1, ..., 2^11-1 (ukupno 2048)
     int UDslice_edge_position;      // 0, 1, ..., (12 nad 4)-1 (ukupno 495)
+    int corner_permutation;         // 0, 1, ..., 8!-1 (ukupno 40320)
     int UDslice_edge_permutation;   // 0, 1, ..., 4!-1 (ukupno 24) 
-    int UD_edge_permutation;// 0, 1, ..., 8!-1 (ukupno 40320)
+    int UD_edge_permutation;        // 0, 1, ..., 8!-1 (ukupno 40320)
 };
 
 void input(CubieLevelCube *cube);
@@ -51,6 +58,6 @@ void cubie_to_UD_edge_permutation(Edges cubie_to_UD_edge_permutation[], int *UD_
 
 
 // mozda treba uzeti int
-Corners R_corner_permutation[8] = { DFR, UFL, ULB, URF, DRB, DLF, DBL, UBR }; // mozda treba uzeti int
+// Corners R_corner_permutation[8] = { DFR, UFL, ULB, URF, DRB, DLF, DBL, UBR }; // mozda treba uzeti int
 
 #endif // DEFINITIONS_H

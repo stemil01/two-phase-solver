@@ -80,7 +80,7 @@ void corner_orientation_to_cubie(int corner_orientation, int cubie_corner_orient
         corner_orientation /= 3;
         sum += cubie_corner_orientation[i];
     }
-    cubie_corner_orientation[7] = 3 - sum % 3;
+    cubie_corner_orientation[7] = (3 - sum % 3) % 3;
 }
 
 void cubie_to_corner_orientation(int cubie_corner_orientation[], int *corner_orientation)
@@ -105,7 +105,7 @@ void edge_orientation_to_cubie(int edge_orientation, int cubie_edge_orientation[
         edge_orientation /= 2;
         sum += cubie_edge_orientation[i];
     }
-    cubie_edge_orientation[11] = 2 - sum % 2;
+    cubie_edge_orientation[11] = (2 - sum % 2) % 2;
 }
 
 void cubie_to_edge_orientation(int cubie_edge_orientation[], int *edge_orientation)
