@@ -1,6 +1,6 @@
 #include <iostream>
-#include "definitions.h"
-#include "moves.h"
+#include "definitions.hpp"
+#include "moves.hpp"
 using namespace std;
 
 int main()
@@ -8,5 +8,9 @@ int main()
     // CubieLevelCube cube;
     // input(&cube);
 
-    moving_generate_corner_orientation();
+    bool nesto[12];
+    UDslice_edge_position_to_cubie(0, nesto);
+    for (int i = 0; i < 12; i++)
+        cout << nesto[i] << " ";
+    cout << '\n';
 }

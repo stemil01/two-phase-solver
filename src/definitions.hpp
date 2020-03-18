@@ -1,5 +1,5 @@
-#ifndef DEFINITIONS_H
-#define DEFINITIONS_H
+#ifndef DEFINITIONS_HPP
+#define DEFINITIONS_HPP
 
 #define NUM_CORNER_ORIENTATION          2187
 #define NUM_EDGE_ORIENTATION            2048 
@@ -60,4 +60,4 @@ void cubie_to_UD_edge_permutation(Edges cubie_to_UD_edge_permutation[], int *UD_
 // mozda treba uzeti int
 // Corners R_corner_permutation[8] = { DFR, UFL, ULB, URF, DRB, DLF, DBL, UBR }; // mozda treba uzeti int
 
-#endif // DEFINITIONS_H
+#endif // DEFINITIONS_HPP
