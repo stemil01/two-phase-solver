@@ -9,16 +9,16 @@ int main()
     // input(&cube);
 
     // generate_moveing_tables();
-    initialize_move_corner();
-    generate_move_corner_permutation();
+    initialize_move_edge();
+    generate_move_UD_edge_permutation();
 
-    Corners temp[8];
-    corner_permutation_to_cubie(15, temp);
+    Edges temp[8];
+    UD_edge_permutation_to_cubie(0, temp);
     for (int i = 0; i < 8; i++)
         cout << temp[i] << " ";
     cout << '\n';
     
-    corner_permutation_to_cubie(move_corner_permutation[15][U], temp);
+    UD_edge_permutation_to_cubie(move_UD_edge_permutation[0][U], temp);
     for (int i = 0; i < 8; i++)
         cout << temp[i] << " ";
     cout << '\n';

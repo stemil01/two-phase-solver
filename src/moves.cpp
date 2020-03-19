@@ -59,25 +59,25 @@ void initialize_move_edge()
     move_edge[F][DF] = FR;
     move_edge[F][FL] = DF;
 
-    move_edge[L][UL] = 
-    move_edge[L][]
-    move_edge[L][]
-    move_edge[L][]
+    move_edge[L][UL] = BL;
+    move_edge[L][FL] = UL;
+    move_edge[L][DL] = FL;
+    move_edge[L][BL] = DL;
     
-    move_edge[B][]
-    move_edge[B][]
-    move_edge[B][]
-    move_edge[B][]
+    move_edge[B][UB] = BR;
+    move_edge[B][BL] = UB;
+    move_edge[B][DB] = BL;
+    move_edge[B][BR] = DB;
 
-    move_edge[U][]
-    move_edge[U][]
-    move_edge[U][]
-    move_edge[U][]
+    move_edge[U][UR] = UB;
+    move_edge[U][UF] = UR;
+    move_edge[U][UL] = UF;
+    move_edge[U][UB] = UL;
 
-    move_edge[D][]
-    move_edge[D][]
-    move_edge[D][]
-    move_edge[D][]
+    move_edge[D][DR] = DF;
+    move_edge[D][DB] = DR;
+    move_edge[D][DL] = DB;
+    move_edge[D][DF] = DL;
 }
 
 void initialize_corner_orient()
