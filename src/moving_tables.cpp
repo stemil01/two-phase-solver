@@ -38,7 +38,10 @@ void generate_move_corner_orientation()
             for (int j = 0; j < 3; j++)    
             {
                 for (int k = 0; k < 8; k++)
-                    moved[k] = corner_orient[move_corner[move][k]][k][prev[k]];
+                {
+                    int replaced_by = move_corner[move][k];
+                    moved[k] = corner_orient[replaced_by][k][prev[replaced_by]];
+                }
                 for (int k = 0; k < 8; k++)
                     prev[k] = moved[k];
 
@@ -65,7 +68,10 @@ void generate_move_edge_orientation()
             for (int j = 0; j < 3; j++)    
             {
                 for (int k = 0; k < 8; k++)
-                    moved[k] = edge_orient[move_edge[move][k]][k][prev[k]];
+                {
+                    int replaced_by = move_edge[move][k];
+                    moved[k] = edge_orient[replaced_by][k][prev[replaced_by]];
+                }
                 for (int k = 0; k < 8; k++)
                     prev[k] = moved[k];
 
