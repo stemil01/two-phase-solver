@@ -21,7 +21,7 @@ extern int move_edge[18][12];
 extern int corner_orient[8][8][3];
 extern int edge_orient[12][12][2];
 
-void generate_moveing_tables();
+void generate_moving_tables();
 void initialize_moves();
 
 void initialize_move_corner();
@@ -32,7 +32,7 @@ void initialize_edge_orient();
 // PHASE 1
 void generate_move_corner_orientation();
 void generate_move_edge_orientation();
-void generate_move_UDslice_edge_postition();
+void generate_move_UDslice_edge_position();
 
 // PHASE 2
 void generate_move_corner_permutation();
