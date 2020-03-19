@@ -15,14 +15,19 @@ extern int move_UDslice_edge_permutation[NUM_UDSLICE_EDGE_PERMUTATION][18]; // o
 extern int move_UD_edge_permutation[NUM_UD_EDGE_PERMUTATION][18];           //////////////////////////////////////////////////////////////////////////////
 
 // pomocni nizovi za pravljenje moving table-ova
-extern int cubie_move_corner_orientation[8][18][3];
-extern int cubie_move_edge_orientation[12][18][2];
-extern int cubie_move_UDslice_edge_position[12][18][2];
-
 extern int move_corner[18][8];
 extern int move_edge[18][12];
 
+extern int corner_orient[8][8][3];
+extern int edge_orient[12][12][2];
+
+void generate_moveing_tables();
 void initialize_moves();
+
+void initialize_move_corner();
+void initialize_move_edge();
+void initialize_corner_orient();
+void initialize_edge_orient();
 
 // PHASE 1
 void generate_move_corner_orientation();
