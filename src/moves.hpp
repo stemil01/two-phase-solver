@@ -18,8 +18,8 @@ extern int move_UD_edge_permutation[NUM_UD_EDGE_PERMUTATION][18];           ////
 extern int move_corner[18][8];
 extern int move_edge[18][12];
 
-extern int corner_orient[8][8][3];
-extern int edge_orient[12][12][2];
+extern int corner_orient[18][8][3];
+extern int edge_orient[18][12][2];
 
 void generate_moving_tables();
 void initialize_moves();

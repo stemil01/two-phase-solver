@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "definitions.hpp"
 #include "moves.hpp"
 using namespace std;
@@ -18,18 +19,20 @@ int cubie_move_UDslice_edge_position[12][18][2];
 int move_corner[18][8];
 int move_edge[18][12];
 
-int corner_orient[8][8][3];
-int edge_orient[12][12][2];
+int corner_orient[18][8][3];
+int edge_orient[18][12][2];
 
 // PHASE 1
 void generate_move_corner_orientation()
 {
+    ofstream file;
+    file.open("../resources/move_corner_orientation");
     for (int i = 0; i < NUM_CORNER_ORIENTATION; i++)
     {
         int cubie_corner_orientation[8], corner_orientation;
         corner_orientation_to_cubie(i, cubie_corner_orientation);
 
-        for (int move = 0; move < 18; move++)
+        for (int move = 0; move < 18; move += 3)
         {
             int moved[8], prev[8];
             for (int k = 0; k < 8; k++)
@@ -40,39 +43,42 @@ void generate_move_corner_orientation()
                 for (int k = 0; k < 8; k++)
                 {
                     int replaced_by = move_corner[move][k];
-                    moved[k] = corner_orient[replaced_by][k][prev[replaced_by]];
+                    moved[k] = corner_orient[move][k][prev[replaced_by]];
                 }
                 for (int k = 0; k < 8; k++)
                     prev[k] = moved[k];
 
                 cubie_to_corner_orientation(moved, &corner_orientation);
                 move_corner_orientation[i][move + j] = corner_orientation;
+                file << corner_orientation << " ";
             }
         }
+        file << '\n';
     }
+    cout << "move_corner_orientation generated" << '\n';
 }
 
 void generate_move_edge_orientation()
 {
     for (int i = 0; i < NUM_EDGE_ORIENTATION; i++)
     {
-        int cubie_edge_orientation[8], edge_orientation;
+        int cubie_edge_orientation[12], edge_orientation;
         edge_orientation_to_cubie(i, cubie_edge_orientation);
 
-        for (int move = 0; move < 18; move++)
+        for (int move = 0; move < 18; move += 3)
         {
-            int moved[8], prev[8];
-            for (int k = 0; k < 8; k++)
+            int moved[12], prev[12];
+            for (int k = 0; k < 12; k++)
                 prev[k] = cubie_edge_orientation[k];
 
             for (int j = 0; j < 3; j++)    
             {
-                for (int k = 0; k < 8; k++)
+                for (int k = 0; k < 12; k++)
                 {
                     int replaced_by = move_edge[move][k];
-                    moved[k] = edge_orient[replaced_by][k][prev[replaced_by]];
+                    moved[k] = edge_orient[move][k][prev[replaced_by]];
                 }
-                for (int k = 0; k < 8; k++)
+                for (int k = 0; k < 12; k++)
                     prev[k] = moved[k];
 
                 cubie_to_edge_orientation(moved, &edge_orientation);
@@ -80,6 +86,7 @@ void generate_move_edge_orientation()
             }
         }
     }
+    cout << "move_edge_orientation generated" << '\n';
 }
 
 void generate_move_UDslice_edge_position()
@@ -106,6 +113,7 @@ void generate_move_UDslice_edge_position()
             }
         }
     }
+    cout << "move_UDslice_edge_position generated" << '\n';
 }
 
 // PHASE 2
@@ -150,6 +158,7 @@ void generate_move_corner_permutation()
             }
         }
     }
+    cout << "move_corner_permutation generated" << '\n';
 }
 
 void generate_move_UD_edge_permutation()
@@ -193,6 +202,7 @@ void generate_move_UD_edge_permutation()
             }
         }
     }
+    cout << "move_UD_edge_permutation generated" << '\n';
 }
 
 void generate_move_UDslice_edge_permutation()
@@ -236,4 +246,5 @@ void generate_move_UDslice_edge_permutation()
             }
         }
     }
+    cout << "move_UDslice_edge_permutation generated" << '\n';
 }

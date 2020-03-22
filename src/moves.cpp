@@ -82,16 +82,112 @@ void initialize_move_edge()
 
 void initialize_corner_orient()
 {
-    for (int corner = 0; corner < 8; corner++)
-        for (int orient = 0; orient < 3; orient++)
-            corner_orient[corner][corner][orient] = orient;
+    for (int move = 0; move < 18; move++)
+        for (int corner = 0; corner < 8; corner++)
+            for (int orient = 0; orient < 3; orient++)
+                corner_orient[move][corner][orient] = orient;
+
+    // R
+    corner_orient[R][URF][0] = 2;
+    corner_orient[R][URF][1] = 0;
+    corner_orient[R][URF][2] = 1;
+
+    corner_orient[R][UBR][0] = 1;
+    corner_orient[R][UBR][1] = 2;
+    corner_orient[R][UBR][2] = 0;
+
+    corner_orient[R][DRB][0] = 2;
+    corner_orient[R][DRB][1] = 0;
+    corner_orient[R][DRB][2] = 1;
+
+    corner_orient[R][DFR][0] = 1;
+    corner_orient[R][DFR][1] = 2;
+    corner_orient[R][DFR][2] = 0;
+
+    // F
+    corner_orient[F][URF][0] = 1;
+    corner_orient[F][URF][1] = 2;
+    corner_orient[F][URF][2] = 0;
+
+    corner_orient[F][DFR][0] = 2;
+    corner_orient[F][DFR][1] = 0;
+    corner_orient[F][DFR][2] = 1;
+
+    corner_orient[F][DLF][0] = 1;
+    corner_orient[F][DLF][1] = 2;
+    corner_orient[F][DLF][2] = 0;
+
+    corner_orient[F][UFL][0] = 2;
+    corner_orient[F][UFL][1] = 0;
+    corner_orient[F][UFL][2] = 1;
+    
+    // L
+    corner_orient[L][UFL][0] = 1;
+    corner_orient[L][UFL][1] = 2;
+    corner_orient[L][UFL][2] = 0;
+
+    corner_orient[L][DLF][0] = 2;
+    corner_orient[L][DLF][1] = 0;
+    corner_orient[L][DLF][2] = 1;
+
+    corner_orient[L][DBL][0] = 1;
+    corner_orient[L][DBL][1] = 2;
+    corner_orient[L][DBL][2] = 0;
+
+    corner_orient[L][ULB][0] = 2;
+    corner_orient[L][ULB][1] = 0;
+    corner_orient[L][ULB][2] = 1;
+
+    // B
+    corner_orient[B][ULB][0] = 1;
+    corner_orient[B][ULB][1] = 2;
+    corner_orient[B][ULB][2] = 0;
+
+    corner_orient[B][DBL][0] = 2;
+    corner_orient[B][DBL][1] = 0;
+    corner_orient[B][DBL][2] = 1;
+
+    corner_orient[B][DRB][0] = 1;
+    corner_orient[B][DRB][1] = 2;
+    corner_orient[B][DRB][2] = 0;
+
+    corner_orient[B][UBR][0] = 2;
+    corner_orient[B][UBR][1] = 0;
+    corner_orient[B][UBR][2] = 1;
 }
 
 void initialize_edge_orient()
 {
-    for (int edge = 0; edge < 8; edge++)
-        for (int orient = 0; orient < 2; orient++)
-            corner_orient[edge][edge][orient] = orient;
+    for (int move = 0; move < 18; move++)
+        for (int edge = 0; edge < 8; edge++)
+            for (int orient = 0; orient < 2; orient++)
+                corner_orient[move][edge][orient] = orient;
+    
+    // F
+    edge_orient[F][UF][0] = 1;
+    edge_orient[F][UF][1] = 0;
+
+    edge_orient[F][FR][0] = 1;
+    edge_orient[F][FR][1] = 0;
+
+    edge_orient[F][DF][0] = 1;
+    edge_orient[F][DF][1] = 0;
+
+    edge_orient[F][FL][0] = 1;
+    edge_orient[F][FL][1] = 0;
+
+    // B
+    edge_orient[B][UB][0] = 1;
+    edge_orient[B][UB][1] = 0;
+
+    edge_orient[B][BL][0] = 1;
+    edge_orient[B][BL][1] = 0;
+
+    edge_orient[B][DB][0] = 1;
+    edge_orient[B][DB][1] = 0;
+
+    edge_orient[B][BR][0] = 1;
+    edge_orient[B][BR][1] = 0;
 }
 
 void initialize_moves()
