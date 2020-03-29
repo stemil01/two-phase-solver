@@ -10,6 +10,7 @@ int main()
 
     // generate_moveing_tables();
     generate_moving_tables();
+    cout << corner_orient[R][URF][0] << '\n';
 
     // Edges temp[8];
     // UD_edge_permutation_to_cubie(0, temp);

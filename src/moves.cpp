@@ -87,6 +87,8 @@ void initialize_corner_orient()
             for (int orient = 0; orient < 3; orient++)
                 corner_orient[move][corner][orient] = orient;
 
+    cout << "e brt usao sam ovde" << '\n';
+
     // R
     corner_orient[R][URF][0] = 2;
     corner_orient[R][URF][1] = 0;
