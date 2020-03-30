@@ -4,24 +4,6 @@
 #include "moves.hpp"
 using namespace std;
 
-int move_corner_orientation[NUM_CORNER_ORIENTATION][18];
-int move_edge_orientation[NUM_EDGE_ORIENTATION][18];
-int move_UDslice_edge_position[NUM_UDSLICE_EDGE_POSITION][18];
-
-int move_corner_permutation[NUM_CORNER_PERMUTATION][18];
-int move_UDslice_edge_permutation[NUM_UDSLICE_EDGE_PERMUTATION][18];
-int move_UD_edge_permutation[NUM_UD_EDGE_PERMUTATION][18];
-
-int cubie_move_corner_orientation[8][18][3];
-int cubie_move_edge_orientation[12][18][2];
-int cubie_move_UDslice_edge_position[12][18][2];
-
-int move_corner[18][8];
-int move_edge[18][12];
-
-int corner_orient[18][8][3];
-int edge_orient[18][12][2];
-
 // PHASE 1
 void generate_move_corner_orientation()
 {

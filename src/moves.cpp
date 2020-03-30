@@ -6,6 +6,26 @@ using namespace std;
 // REDOSLED POTEZA
 // R R2 R3 F F2 F3 L L2 L3 B B2 B3 U U2 U3 D D2 D3
 
+// MOVING TABLES
+int move_corner_orientation[NUM_CORNER_ORIENTATION][18];
+int move_edge_orientation[NUM_EDGE_ORIENTATION][18];
+int move_UDslice_edge_position[NUM_UDSLICE_EDGE_POSITION][18];
+
+int move_corner_permutation[NUM_CORNER_PERMUTATION][18];
+int move_UDslice_edge_permutation[NUM_UDSLICE_EDGE_PERMUTATION][18];
+int move_UD_edge_permutation[NUM_UD_EDGE_PERMUTATION][18];
+
+int cubie_move_corner_orientation[8][18][3];
+int cubie_move_edge_orientation[12][18][2];
+int cubie_move_UDslice_edge_position[12][18][2];
+
+// pomocni nizovi za pravljenje moving table-ova
+int move_corner[18][8];
+int move_edge[18][12];
+
+int corner_orient[18][8][3];
+int edge_orient[18][12][2];
+
 void initialize_move_corner()
 {
     for (int move = 0; move < 18; move++)
@@ -87,8 +107,6 @@ void initialize_corner_orient()
             for (int orient = 0; orient < 3; orient++)
                 corner_orient[move][corner][orient] = orient;
 
-    cout << "e brt usao sam ovde" << '\n';
-
     // R
     corner_orient[R][URF][0] = 2;
     corner_orient[R][URF][1] = 0;
@@ -161,9 +179,9 @@ void initialize_corner_orient()
 void initialize_edge_orient()
 {
     for (int move = 0; move < 18; move++)
-        for (int edge = 0; edge < 8; edge++)
+        for (int edge = 0; edge < 12; edge++)
             for (int orient = 0; orient < 2; orient++)
-                corner_orient[move][edge][orient] = orient;
+                edge_orient[move][edge][orient] = orient;
     
     // F
     edge_orient[F][UF][0] = 1;
