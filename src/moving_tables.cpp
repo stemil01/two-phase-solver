@@ -223,7 +223,7 @@ void generate_move_UDslice_edge_permutation()
             {
                 // radi samo phase 2 poteze
                 for (int k = 0; k < 4; k++)
-                    moved[k] = prev[move_edge[move][move_edge[move][k]]];
+                    moved[k] = prev[move_edge[move][move_edge[move][k + 8]] - 8]; // zato sto prev ima domen [0, 1, 2, 3], a move_edge [8, 9, 10, 11]
                 for (int k = 0; k < 4; k++)
                     prev[k] = moved[k]; 
                 cubie_to_UDslice_edge_permutation(moved, &UDslice_edge_permutation);
@@ -236,7 +236,7 @@ void generate_move_UDslice_edge_permutation()
                 for (int j = 0; j < 3; j++)
                 {
                     for (int k = 0; k < 4; k++)
-                        moved[k] = prev[move_edge[move][k]];
+                        moved[k] = prev[move_edge[move][k + 8] - 8]; // edges su iz skupa {8, 9, 10, 11}
                     for (int k = 0; k < 4; k++)
                         prev[k] = moved[k];
                     cubie_to_UDslice_edge_permutation(moved, &UDslice_edge_permutation);

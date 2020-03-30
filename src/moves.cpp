@@ -242,7 +242,7 @@ void load_move_edge_orientation()
         cout << SUCCESS_COLOR << "move_edge_orientation loaded successfully" << RESET_COLOR << '\n';
     }
     else
-        cout << ERROR_COLOR << "failed loading move_edge_orentation file" << RESET_COLOR << '\n';    
+        cout << ERROR_COLOR << "failed loading move_edge_orientation file" << RESET_COLOR << '\n';    
     file.close();
 }
 
@@ -276,7 +276,7 @@ void load_move_corner_permutation()
                     file >> move_corner_permutation[i][move + 1];
                 else
                     for (int j = 0; j < 3; j++)
-                        file >> move_corner_orientation[i][move + j];
+                        file >> move_corner_permutation[i][move + j];
             }
         
         cout << SUCCESS_COLOR << "move_corner_permutation loaded successfully" << RESET_COLOR << '\n';
@@ -319,7 +319,7 @@ void load_move_UDslice_edge_permutation()
             for (int move = 0; move < 18; move += 3)
             {
                 if (move < 12)
-                    file >> move_UD_edge_permutation[i][move + 1];
+                    file >> move_UDslice_edge_permutation[i][move + 1];
                 else
                     for (int j = 0; j < 3; j++)
                         file >> move_UDslice_edge_permutation[i][move + j];
@@ -328,7 +328,7 @@ void load_move_UDslice_edge_permutation()
         cout << SUCCESS_COLOR << "move_UDslice_edge_permutation loaded successfully" << RESET_COLOR << '\n';
     }
     else
-        cout << ERROR_COLOR << "failed loading move_UD_edge_permutation file" << RESET_COLOR << '\n';    
+        cout << ERROR_COLOR << "failed loading move_UDslice_edge_permutation file" << RESET_COLOR << '\n';    
     file.close();
 }
 
