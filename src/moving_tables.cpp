@@ -128,13 +128,10 @@ void generate_move_corner_permutation()
             if (move < 12)
             {
                 // radi samo phase 2 poteze
-                for (int j = 0; j < 2; j++)
-                {
-                    for (int k = 0; k < 8; k++)
-                        moved[k] = prev[move_corner[move][k]];
-                    for (int k = 0; k < 8; k++)
-                        prev[k] = moved[k]; 
-                }
+                for (int k = 0; k < 8; k++)
+                    moved[k] = prev[move_corner[move][move_corner[move][k]]];
+                for (int k = 0; k < 8; k++)
+                    prev[k] = moved[k]; 
                 cubie_to_corner_permutation(moved, &corner_permutation);
                 move_corner_permutation[i][move + 1] = corner_permutation;
                 file << corner_permutation << " ";
@@ -178,13 +175,10 @@ void generate_move_UD_edge_permutation()
             if (move < 12)
             {
                 // radi samo phase 2 poteze
-                for (int j = 0; j < 2; j++)
-                {
-                    for (int k = 0; k < 8; k++)
-                        moved[k] = prev[move_edge[move][k]];
-                    for (int k = 0; k < 8; k++)
-                        prev[k] = moved[k]; 
-                }
+                for (int k = 0; k < 8; k++)
+                    moved[k] = prev[move_edge[move][move_edge[move][k]]];
+                for (int k = 0; k < 8; k++)
+                    prev[k] = moved[k]; 
                 cubie_to_UD_edge_permutation(moved, &UD_edge_permutation);
                 move_UD_edge_permutation[i][move + 1] = UD_edge_permutation;
                 file << UD_edge_permutation << " ";
@@ -228,13 +222,10 @@ void generate_move_UDslice_edge_permutation()
             if (move < 12)
             {
                 // radi samo phase 2 poteze
-                for (int j = 0; j < 2; j++)
-                {
-                    for (int k = 0; k < 4; k++)
-                        moved[k] = prev[move_edge[move][k]];
-                    for (int k = 0; k < 4; k++)
-                        prev[k] = moved[k]; 
-                }
+                for (int k = 0; k < 4; k++)
+                    moved[k] = prev[move_edge[move][move_edge[move][k]]];
+                for (int k = 0; k < 4; k++)
+                    prev[k] = moved[k]; 
                 cubie_to_UDslice_edge_permutation(moved, &UDslice_edge_permutation);
                 move_UDslice_edge_permutation[i][move + 1] = UDslice_edge_permutation;
                 file << UDslice_edge_permutation << " ";
