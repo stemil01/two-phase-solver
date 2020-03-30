@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "definitions.hpp"
 #include "moves.hpp"
 using namespace std;
@@ -12,8 +13,8 @@ int move_edge_orientation[NUM_EDGE_ORIENTATION][18];
 int move_UDslice_edge_position[NUM_UDSLICE_EDGE_POSITION][18];
 
 int move_corner_permutation[NUM_CORNER_PERMUTATION][18];
-int move_UDslice_edge_permutation[NUM_UDSLICE_EDGE_PERMUTATION][18];
 int move_UD_edge_permutation[NUM_UD_EDGE_PERMUTATION][18];
+int move_UDslice_edge_permutation[NUM_UDSLICE_EDGE_PERMUTATION][18];
 
 int cubie_move_corner_orientation[8][18][3];
 int cubie_move_edge_orientation[12][18][2];
@@ -210,6 +211,128 @@ void initialize_edge_orient()
     edge_orient[B][BR][1] = 0;
 }
 
+// FUNKCIJE ZA UCITAVANJE IZ VEC GENERISANIH FAJLOVA
+void load_move_corner_orientation()
+{
+    ifstream file;
+    file.open("../resources/moving_tables/move_corner_orientation");
+    if (file) 
+    {
+        for (int i = 0; i < NUM_CORNER_ORIENTATION; i++)
+            for (int move = 0; move < 18; move++)
+                file >> move_corner_orientation[i][move];
+    
+        cout << SUCCESS_COLOR << "move_corner_orienation loaded successfully" << RESET_COLOR << '\n';
+    }
+    else
+        cout << ERROR_COLOR << "failed loading move_corner_orientation file" << RESET_COLOR << '\n';    
+    file.close();
+}
+
+void load_move_edge_orientation()
+{
+    ifstream file;
+    file.open("../resources/moving_tables/move_edge_orientation");
+    if (file) 
+    {
+        for (int i = 0; i < NUM_EDGE_ORIENTATION; i++)
+            for (int move = 0; move < 18; move++)
+                file >> move_edge_orientation[i][move];
+
+        cout << SUCCESS_COLOR << "move_edge_orientation loaded successfully" << RESET_COLOR << '\n';
+    }
+    else
+        cout << ERROR_COLOR << "failed loading move_edge_orentation file" << RESET_COLOR << '\n';    
+    file.close();
+}
+
+void load_move_UDslice_edge_position()
+{
+    ifstream file;
+    file.open("../resources/moving_tables/move_UDslice_edge_position");
+    if (file) 
+    {
+        for (int i = 0; i < NUM_UDSLICE_EDGE_POSITION; i++)
+            for (int move = 0; move < 18; move++)
+                file >> move_UDslice_edge_position[i][move];
+        
+        cout << SUCCESS_COLOR << "move_UDslice_edge_position loaded successfully" << RESET_COLOR << '\n';
+    }
+    else
+        cout << ERROR_COLOR << "failed loading move_UDslice_edge_position file" << RESET_COLOR << '\n';    
+    file.close();
+}
+
+void load_move_corner_permutation()
+{
+    ifstream file;
+    file.open("../resources/moving_tables/move_corner_permutation");
+    if (file) 
+    {
+        for (int i = 0; i < NUM_CORNER_PERMUTATION; i++)
+            for (int move = 0; move < 18; move += 3)
+            {
+                if (move < 12)
+                    file >> move_corner_permutation[i][move + 1];
+                else
+                    for (int j = 0; j < 3; j++)
+                        file >> move_corner_orientation[i][move + j];
+            }
+        
+        cout << SUCCESS_COLOR << "move_corner_permutation loaded successfully" << RESET_COLOR << '\n';
+    }
+    else
+        cout << ERROR_COLOR << "failed loading move_corner_permutation file" << RESET_COLOR << '\n';    
+    file.close();
+}
+
+void load_move_UD_edge_permutation()
+{
+    ifstream file;
+    file.open("../resources/moving_tables/move_UD_edge_permutation");
+    if (file) 
+    {
+        for (int i = 0; i < NUM_UD_EDGE_PERMUTATION; i++)
+            for (int move = 0; move < 18; move += 3)
+            {
+                if (move < 12)
+                    file >> move_UD_edge_permutation[i][move + 1];
+                else
+                    for (int j = 0; j < 3; j++)
+                        file >> move_UD_edge_permutation[i][move + j];
+            }
+
+        cout << SUCCESS_COLOR << "move_UD_edge_permutation loaded successfully" << RESET_COLOR << '\n';
+    }
+    else
+        cout << ERROR_COLOR << "failed loading move_UD_edge_permutation file" << RESET_COLOR << '\n';    
+    file.close();
+}
+
+void load_move_UDslice_edge_permutation()
+{
+    ifstream file;
+    file.open("../resources/moving_tables/move_UDslice_edge_permutation");
+    if (file) 
+    {
+        for (int i = 0; i < NUM_UDSLICE_EDGE_PERMUTATION; i++)
+            for (int move = 0; move < 18; move += 3)
+            {
+                if (move < 12)
+                    file >> move_UD_edge_permutation[i][move + 1];
+                else
+                    for (int j = 0; j < 3; j++)
+                        file >> move_UDslice_edge_permutation[i][move + j];
+            }
+
+        cout << SUCCESS_COLOR << "move_UDslice_edge_permutation loaded successfully" << RESET_COLOR << '\n';
+    }
+    else
+        cout << ERROR_COLOR << "failed loading move_UD_edge_permutation file" << RESET_COLOR << '\n';    
+    file.close();
+}
+
+// FUNKCIJE ZA POZIVANJE
 void initialize_moves()
 {
     initialize_move_corner();
@@ -221,10 +344,30 @@ void initialize_moves()
 void generate_moving_tables()
 {
     initialize_moves();
-    generate_move_corner_orientation();
-    generate_move_edge_orientation();
-    generate_move_UDslice_edge_position();
-    generate_move_corner_permutation();
-    generate_move_UD_edge_permutation();
-    generate_move_UDslice_edge_permutation();
+
+    char answer;
+    bool generate = true;
+    cout << "Do you want to generate new moving tables? [Y/n] ";
+    cin >> answer;
+    if (answer == 'N' || answer == 'n')
+        generate = false;
+
+    if (generate)
+    {
+        generate_move_corner_orientation();
+        generate_move_edge_orientation();
+        generate_move_UDslice_edge_position();
+        generate_move_corner_permutation();
+        generate_move_UD_edge_permutation();
+        generate_move_UDslice_edge_permutation();
+    }
+    else
+    {
+        load_move_corner_orientation();
+        load_move_edge_orientation();
+        load_move_UDslice_edge_position();
+        load_move_corner_permutation();
+        load_move_UD_edge_permutation();
+        load_move_UDslice_edge_permutation();
+    }
 }

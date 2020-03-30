@@ -11,8 +11,8 @@ extern int move_edge_orientation[NUM_EDGE_ORIENTATION][18];
 extern int move_UDslice_edge_position[NUM_UDSLICE_EDGE_POSITION][18];
 
 extern int move_corner_permutation[NUM_CORNER_PERMUTATION][18];             //////////////////////////////////////////////////////////////////////////////
-extern int move_UDslice_edge_permutation[NUM_UDSLICE_EDGE_PERMUTATION][18]; // ovde ce biti po 10 poteza, ali zbog olaksica pravim matrice sa 18 kolona //
-extern int move_UD_edge_permutation[NUM_UD_EDGE_PERMUTATION][18];           //////////////////////////////////////////////////////////////////////////////
+extern int move_UD_edge_permutation[NUM_UD_EDGE_PERMUTATION][18];           // ovde ce biti po 10 poteza, ali zbog olaksica pravim matrice sa 18 kolona //
+extern int move_UDslice_edge_permutation[NUM_UDSLICE_EDGE_PERMUTATION][18]; ////////////////////////////////////////////////////////////////////////////// 
 
 // pomocni nizovi za pravljenje moving table-ova
 extern int move_corner[18][8];
@@ -35,6 +35,14 @@ void generate_move_UDslice_edge_position();
 void generate_move_corner_permutation();
 void generate_move_UD_edge_permutation();
 void generate_move_UDslice_edge_permutation();
+
+void load_move_corner_orientation();
+void load_move_edge_orientation();
+void load_move_UDslice_edge_position();
+
+void load_move_corner_permutation();
+void load_move_UD_edge_permutation();
+void load_move_UDslice_edge_permutation();
 
 void initialize_moves();
 void generate_moving_tables();

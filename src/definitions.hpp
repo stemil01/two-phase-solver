@@ -8,6 +8,10 @@
 #define NUM_UDSLICE_EDGE_PERMUTATION    24
 #define NUM_UD_EDGE_PERMUTATION         40320
 
+#define SUCCESS_COLOR                   "\033[32m"
+#define ERROR_COLOR                     "\033[31m"
+#define RESET_COLOR                     "\033[0m"
+
 enum Corners : int { URF, UFL, ULB, UBR, DFR, DLF, DBL, DRB };
 enum Edges : int { UR, UF, UL, UB, DR, DF, DL, DB, FR, FL, BL, BR };
 

@@ -8,7 +8,7 @@ using namespace std;
 void generate_move_corner_orientation()
 {
     ofstream file;
-    file.open("../resources/move_corner_orientation");
+    file.open("../resources/moving_tables/move_corner_orientation");
     for (int i = 0; i < NUM_CORNER_ORIENTATION; i++)
     {
         int cubie_corner_orientation[8], corner_orientation;
@@ -37,11 +37,14 @@ void generate_move_corner_orientation()
         }
         file << '\n';
     }
+    file.close();
     cout << "move_corner_orientation generated" << '\n';
 }
 
 void generate_move_edge_orientation()
 {
+    ofstream file;
+    file.open("../resources/moving_tables/move_edge_orientation");
     for (int i = 0; i < NUM_EDGE_ORIENTATION; i++)
     {
         int cubie_edge_orientation[12], edge_orientation;
@@ -65,14 +68,19 @@ void generate_move_edge_orientation()
 
                 cubie_to_edge_orientation(moved, &edge_orientation);
                 move_edge_orientation[i][move + j] = edge_orientation;
+                file << edge_orientation << " ";
             }
         }
+        file << '\n';
     }
+    file.close();
     cout << "move_edge_orientation generated" << '\n';
 }
 
 void generate_move_UDslice_edge_position()
 {
+    ofstream file;
+    file.open("../resources/moving_tables/move_UDslice_edge_position");
     for (int i = 0; i < NUM_UDSLICE_EDGE_POSITION; i++)
     {
         bool cubie_UDslice_edge_position[12];
@@ -92,15 +100,20 @@ void generate_move_UDslice_edge_position()
                     prev[k] = moved[k];
                 cubie_to_UDslice_edge_position(moved, &UDslice_edge_position);
                 move_UDslice_edge_position[i][move + j] = UDslice_edge_position;
+                file << UDslice_edge_position << " ";
             }
         }
+        file << '\n';
     }
+    file.close();
     cout << "move_UDslice_edge_position generated" << '\n';
 }
 
 // PHASE 2
 void generate_move_corner_permutation()
 {
+    ofstream file;
+    file.open("../resources/moving_tables/move_corner_permutation");
     for (int i = 0; i < NUM_CORNER_PERMUTATION; i++)
     {
         Corners cubie_corner_permutation[8];
@@ -124,6 +137,7 @@ void generate_move_corner_permutation()
                 }
                 cubie_to_corner_permutation(moved, &corner_permutation);
                 move_corner_permutation[i][move + 1] = corner_permutation;
+                file << corner_permutation << " ";
             }
             else
             {
@@ -136,15 +150,20 @@ void generate_move_corner_permutation()
                         prev[k] = moved[k];
                     cubie_to_corner_permutation(moved, &corner_permutation);
                     move_corner_permutation[i][move + j] = corner_permutation;
+                    file << corner_permutation << " ";
                 }
             }
         }
+        file << '\n';
     }
+    file.close();
     cout << "move_corner_permutation generated" << '\n';
 }
 
 void generate_move_UD_edge_permutation()
 {
+    ofstream file;
+    file.open("../resources/moving_tables/move_UD_edge_permutation");
     for (int i = 0; i < NUM_UD_EDGE_PERMUTATION; i++)
     {
         Edges cubie_UD_edge_permutation[8];
@@ -168,6 +187,7 @@ void generate_move_UD_edge_permutation()
                 }
                 cubie_to_UD_edge_permutation(moved, &UD_edge_permutation);
                 move_UD_edge_permutation[i][move + 1] = UD_edge_permutation;
+                file << UD_edge_permutation << " ";
             }
             else
             {
@@ -180,15 +200,20 @@ void generate_move_UD_edge_permutation()
                         prev[k] = moved[k];
                     cubie_to_UD_edge_permutation(moved, &UD_edge_permutation);
                     move_UD_edge_permutation[i][move + j] = UD_edge_permutation;
+                    file << UD_edge_permutation << " ";
                 }
             }
         }
+        file << '\n';
     }
+    file.close();
     cout << "move_UD_edge_permutation generated" << '\n';
 }
 
 void generate_move_UDslice_edge_permutation()
 {
+    ofstream file;
+    file.open("../resources/moving_tables/move_UDslice_edge_permutation");
     for (int i = 0; i < NUM_UDSLICE_EDGE_PERMUTATION; i++)
     {
         Edges cubie_UDslice_edge_permutation[4];
@@ -212,6 +237,7 @@ void generate_move_UDslice_edge_permutation()
                 }
                 cubie_to_UDslice_edge_permutation(moved, &UDslice_edge_permutation);
                 move_UDslice_edge_permutation[i][move + 1] = UDslice_edge_permutation;
+                file << UDslice_edge_permutation << " ";
             }
             else
             {
@@ -224,9 +250,12 @@ void generate_move_UDslice_edge_permutation()
                         prev[k] = moved[k];
                     cubie_to_UDslice_edge_permutation(moved, &UDslice_edge_permutation);
                     move_UDslice_edge_permutation[i][move + j] = UDslice_edge_permutation;
+                    file << UDslice_edge_permutation << " ";
                 }
             }
         }
+        file << '\n';
     }
+    file.close();
     cout << "move_UDslice_edge_permutation generated" << '\n';
 }
