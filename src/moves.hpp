@@ -1,7 +1,7 @@
 #ifndef MOVES_HPP
 #define MOVES_HPP
 
-#include "definitions.hpp"
+#include "coordinates.hpp"
 
 enum Moves : int {R, R2, R3, F, F2, F3, L, L2, L3, B, B2, B3, U, U2, U3, D, D2, D3};
 

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "definitions.hpp"
+#include "coordinates.hpp"
 #include "moves.hpp"
 using namespace std;
 

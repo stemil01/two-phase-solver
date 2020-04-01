@@ -1,5 +1,5 @@
-#ifndef DEFINITIONS_HPP
-#define DEFINITIONS_HPP
+#ifndef COORDINATES_HPP
+#define COORDINATES_HPP
 
 #define NUM_CORNER_ORIENTATION          2187
 #define NUM_EDGE_ORIENTATION            2048 
@@ -60,4 +60,4 @@ void cubie_to_UDslice_edge_permutation(Edges cubie_UDslice_edge_permutation[], i
 void UD_edge_permutation_to_cubie(int UD_edge_permutation, Edges cubie_UD_edge_permutation[]);
 void cubie_to_UD_edge_permutation(Edges cubie_to_UD_edge_permutation[], int *UD_edge_permutation);
 
-#endif // DEFINITIONS_HPP
+#endif // COORDINATES_HPP

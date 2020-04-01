@@ -1,5 +1,5 @@
 #include <iostream>
-#include "definitions.hpp"
+#include "coordinates.hpp"
 using namespace std;
 
 void input(CubieLevelCube *cube)
