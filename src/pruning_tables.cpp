@@ -4,8 +4,7 @@
 #include "moves.hpp"
 using namespace std;
 
-unsigned char phase1_pruning[554273280]; // ukupan broj razlicitih kombinacija u prvoj fazi je 2217093120 
-                                // ovo je 1/4 zato sto u svakoj cuvamo po 4 vrednosti (svaka ima po 2 bita)
+unsigned char phase1_pruning[NUM_PHASE1_PRUNING_TABLE]; 
 
 unsigned int get_phase1_state(int corner_orientation, int edge_orientation, int UDslice_edge_position)
 {
@@ -26,10 +25,20 @@ void get_phase1_coordinates(unsigned int state, int* corner_orientation, int* ed
     *corner_orientation = state;
 }
 
+void initialize_phase1_pruning()
+{
+    for (int i = 0; i < NUM_PHASE1_PRUNING_TABLE; i++)
+        phase1_pruning[i] = ~0;
+}
+
 void generate_phase1_pruning_table()
 {
+    initialize_phase1_pruning();
+
     queue<unsigned int> q;    
     q.push(0);
+
+    phase1_pruning[0] &= (~0 << 2); // postavljanje da je vrednost stanja 0, jednaka 0
 
     while (!q.empty())
     {
@@ -37,8 +46,13 @@ void generate_phase1_pruning_table()
         q.pop();
 
         int corner_orientation, edge_orientation, UDslice_edge_position;
+        int index = state >> 4;
+        int position = state & 4;
+        int mask = 4 << 2 * position;
+        int phase1_pruning_value = (phase1_pruning[index] & mask) >> (2 * position);
+
         int moved_corner_orientation, moved_edge_orientation, moved_UDslice_edge_position;
-        int moved_state;
+        int moved_state, moved_phase1_pruning_value;
 
         for (int move = 0; move < 18; move++)
         {
@@ -47,6 +61,18 @@ void generate_phase1_pruning_table()
             moved_UDslice_edge_position = move_UDslice_edge_position[UDslice_edge_position][move];
 
             moved_state = get_phase1_state(moved_corner_orientation, moved_edge_orientation, moved_UDslice_edge_position);
+
+            int moved_index = moved_state >> 4;
+            int moved_position = moved_state & 4;
+            int moved_mask = 4 << 2 * moved_position;
+
+            if (phase1_pruning[index] & mask == mask) // ovo znaci da se nije pojavljivao do sad, tj. da ima vrednost 11
+            {
+                int moved_phase1_pruning_value = (phase1_pruning_value + 1) % 3;
+                moved_phase1_pruning_value <<= 2 * moved_position;
+                phase1_pruning[index] &= moved_phase1_pruning_value; // radice & zato sto je vec tamo vrednost 11 
+                q.push(moved_state);
+            }
         }
     }
 }

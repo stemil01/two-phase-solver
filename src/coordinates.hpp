@@ -8,6 +8,11 @@
 #define NUM_UDSLICE_EDGE_PERMUTATION    24
 #define NUM_UD_EDGE_PERMUTATION         40320
 
+#define NUM_PHASE1_PRUNING_TABLE        554273280   // ukupan broj razlicitih kombinacija u prvoj fazi je 2217093120 
+                                                    // ovo je 1/4 zato sto u svakoj cuvamo po 4 vrednosti (svaka ima po 2 bita)
+                                                    // cuvamo ih s desna na levo u jednom byte-u
+
+
 #define SUCCESS_COLOR                   "\033[32m"
 #define ERROR_COLOR                     "\033[31m"
 #define RESET_COLOR                     "\033[0m"
