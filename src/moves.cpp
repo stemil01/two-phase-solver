@@ -215,7 +215,7 @@ void initialize_edge_orient()
 void load_move_corner_orientation()
 {
     ifstream file;
-    file.open("../resources/moving_tables/move_corner_orientation");
+    file.open("resources/moving_tables/move_corner_orientation");
     if (file) 
     {
         for (int i = 0; i < NUM_CORNER_ORIENTATION; i++)
@@ -232,7 +232,7 @@ void load_move_corner_orientation()
 void load_move_edge_orientation()
 {
     ifstream file;
-    file.open("../resources/moving_tables/move_edge_orientation");
+    file.open("resources/moving_tables/move_edge_orientation");
     if (file) 
     {
         for (int i = 0; i < NUM_EDGE_ORIENTATION; i++)
@@ -249,7 +249,7 @@ void load_move_edge_orientation()
 void load_move_UDslice_edge_position()
 {
     ifstream file;
-    file.open("../resources/moving_tables/move_UDslice_edge_position");
+    file.open("resources/moving_tables/move_UDslice_edge_position");
     if (file) 
     {
         for (int i = 0; i < NUM_UDSLICE_EDGE_POSITION; i++)
@@ -266,7 +266,7 @@ void load_move_UDslice_edge_position()
 void load_move_corner_permutation()
 {
     ifstream file;
-    file.open("../resources/moving_tables/move_corner_permutation");
+    file.open("resources/moving_tables/move_corner_permutation");
     if (file) 
     {
         for (int i = 0; i < NUM_CORNER_PERMUTATION; i++)
@@ -289,7 +289,7 @@ void load_move_corner_permutation()
 void load_move_UD_edge_permutation()
 {
     ifstream file;
-    file.open("../resources/moving_tables/move_UD_edge_permutation");
+    file.open("resources/moving_tables/move_UD_edge_permutation");
     if (file) 
     {
         for (int i = 0; i < NUM_UD_EDGE_PERMUTATION; i++)
@@ -312,7 +312,7 @@ void load_move_UD_edge_permutation()
 void load_move_UDslice_edge_permutation()
 {
     ifstream file;
-    file.open("../resources/moving_tables/move_UDslice_edge_permutation");
+    file.open("resources/moving_tables/move_UDslice_edge_permutation");
     if (file) 
     {
         for (int i = 0; i < NUM_UDSLICE_EDGE_PERMUTATION; i++)

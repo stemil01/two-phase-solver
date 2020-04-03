@@ -123,7 +123,7 @@ void cubie_to_edge_orientation(int cubie_edge_orientation[], int *edge_orientati
 void UDslice_edge_position_to_cubie(int UDslice_edge_position, bool cubie_UDslice_edge_position[])
 {
     // gledamo sa desna radi jednostavnosti
-    int p[5], i = 1;
+    int p[5];
     p[0] = 12;
     for (int i = 1; i < 5; i++)
     {
