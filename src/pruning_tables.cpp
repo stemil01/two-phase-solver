@@ -57,15 +57,17 @@ void generate_phase1_pruning_table()
 
     phase1_pruning[0] &= (~0 << 2); // postavljanje da je vrednost stanja 0, jednaka 0
 
-    bool stop = false;
-    while (!q.empty() && !stop)
+    unsigned int counter = 0;
+
+    while (!q.empty())
     {
         unsigned int state = q.front();
         q.pop();
 
+        counter++;
         unsigned int size = q.size();
-        if (size > 1000000)
-            stop = true;
+        if (counter % 10000000 == 0)
+            cout << "q ima " << size << " elemenata; a obelezeno je " << counter << " elemenata" << '\n';
 
         int corner_orientation, edge_orientation, UDslice_edge_position;
         get_phase1_coordinates(state, &corner_orientation, &edge_orientation, &UDslice_edge_position);
@@ -104,8 +106,28 @@ void generate_phase1_pruning_table()
 
     ofstream file;
     file.open("resources/pruning_tables/phase1_pruning");
+    if (file)
     for (int i = 0; i < NUM_PHASE1_PRUNING_TABLE; i++)
-        file << phase1_pruning[i] << '\n';  // PROVERI DA LI MOZE DA UCITA KARAKTERE TOG OBLIKA, AKO NE, TREBA KORISTITI (INT) ISPRED
+        file << (int)phase1_pruning[i] << '\n';  // PROVERI DA LI MOZE DA UCITA KARAKTERE TOG OBLIKA, AKO NE, TREBA KORISTITI (INT) ISPRED
                                             // STO IMA ZA POSLEDICU DUPLO VECU ISKORISCENOST MEMEORIJE
+    file.close();
+}
+
+void load_phase1_pruning_table()
+{
+    ifstream file;
+    file.open("resources/pruning_tables/phase1_pruning");
+    if (file)
+    {
+        int temp;
+        for (int i = 0; i < NUM_PHASE1_PRUNING_TABLE; i++)
+        {
+            file >> temp;
+            phase1_pruning[i] = temp;
+        }
+        cout << SUCCESS_COLOR << "sucessfully loaded phase1_pruning" << RESET_COLOR << '\n';
+    }
+    else
+        cout << ERROR_COLOR << "loading phase1_pruning failed" << RESET_COLOR << '\n';
     file.close();
 }
