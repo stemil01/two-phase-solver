@@ -13,9 +13,10 @@
                                                     // cuvamo ih s desna na levo u jednom byte-u
 
 
-#define SUCCESS_COLOR                   "\033[32m"
-#define ERROR_COLOR                     "\033[31m"
-#define RESET_COLOR                     "\033[0m"
+#define SUCCESS_TEXT                    "\033[32m"
+#define ERROR_TEXT                      "\033[31m"
+#define BOLD_TEXT                       "\033[1m"
+#define RESET_TEXT                      "\033[0m"
 
 enum Corners : int { URF, UFL, ULB, UBR, DFR, DLF, DBL, DRB };
 enum Edges : int { UR, UF, UL, UB, DR, DF, DL, DB, FR, FL, BL, BR };

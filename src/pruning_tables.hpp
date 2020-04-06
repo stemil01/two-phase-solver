@@ -12,7 +12,7 @@ void get_phase1_coordinates(unsigned int state, int* corner_orientation, int* ed
 
 void initialize_phase1_pruning();
 
-void generate_phase1_pruning_table();
 void load_phase1_pruning_table();
+void generate_phase1_pruning_table();
 
 #endif // PRUNING_TABLES_HPP
