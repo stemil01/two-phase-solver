@@ -1,16 +1,19 @@
 #ifndef COORDINATES_HPP
 #define COORDINATES_HPP
 
-#define NUM_CORNER_ORIENTATION          2187
-#define NUM_EDGE_ORIENTATION            2048 
-#define NUM_UDSLICE_EDGE_POSITION       495
-#define NUM_CORNER_PERMUTATION          40320
-#define NUM_UDSLICE_EDGE_PERMUTATION    24
-#define NUM_UD_EDGE_PERMUTATION         40320
+#define NUM_CORNER_ORIENTATION              2187
+#define NUM_EDGE_ORIENTATION                2048 
+#define NUM_UDSLICE_EDGE_POSITION           495
+#define NUM_CORNER_PERMUTATION              40320
+#define NUM_UDSLICE_EDGE_PERMUTATION        24
+#define NUM_UD_EDGE_PERMUTATION             40320
 
-#define NUM_PHASE1_PRUNING_TABLE        554273280   // ukupan broj razlicitih kombinacija u prvoj fazi je 2217093120 
-                                                    // ovo je 1/4 zato sto u svakoj cuvamo po 4 vrednosti (svaka ima po 2 bita)
-                                                    // cuvamo ih s desna na levo u jednom byte-u
+#define NUM_PHASE1_PRUNING_TABLE            554273280   // ukupan broj razlicitih kombinacija u prvoj fazi je 2217093120 
+                                                        // ovo je 1/4 zato sto u svakoj cuvamo po 4 vrednosti (svaka ima po 2 bita)
+                                                        // cuvamo ih s desna na levo u jednom byte-u
+#define NUM_PHASE2_CORNER_UD_EDGE           1625702400
+#define NUM_PHASE2_CORNER_UDSLICE_EDGE      967680
+#define NUM_PHASE2_UD_EDGE_UDSLICE_EDGE     967680
 
 
 #define SUCCESS_TEXT                    "\033[32m"

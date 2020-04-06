@@ -26,7 +26,7 @@ void test_phase1_search(int corner_orientation, int edge_orientation, int UDslic
             int moved_UDslice_edge_position = move_UDslice_edge_position[UDslice_edge_position][move];
 
             int moved_depth = get_phase1_pruning_value(get_phase1_state(moved_corner_orientation, moved_edge_orientation, moved_UDslice_edge_position));
-            if (moved_depth == (depth + 2) % 3) // ovo je kao (depth - 1) % 3, ali -1 % 3 je -1 u c++ iz nekog razloga
+            if (moved_depth == (depth + 2) % 3) // ovo je kao (depth - 1) % 3, ali -1 % 3 je -1 u c++-u iz nekog razloga
             {
                 found = true;
                 corner_orientation = moved_corner_orientation;

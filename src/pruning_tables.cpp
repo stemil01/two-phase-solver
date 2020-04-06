@@ -6,7 +6,11 @@
 using namespace std;
 
 unsigned char phase1_pruning[NUM_PHASE1_PRUNING_TABLE]; 
+unsigned char phase2_corner_UD_edge[NUM_PHASE2_CORNER_UD_EDGE];
+unsigned char phase2_corner_UDslice_edge[NUM_PHASE2_CORNER_UDSLICE_EDGE];
+unsigned char phase2_UD_edge_UDslice_edge[NUM_PHASE2_UD_EDGE_UDSLICE_EDGE];
 
+// PHASE 1
 int get_phase1_pruning_value(unsigned int state)
 {
     int index = state >> 2;
@@ -72,7 +76,6 @@ void generate_phase1_pruning_table()
     initialize_phase1_pruning();
 
     bool generate = false;
-
     char answer;
     cout << "Do you want to generate new " << BOLD_TEXT << "phase1_pruning" << RESET_TEXT << " table? [y/N] ";
     cin >> answer;
@@ -144,12 +147,275 @@ void generate_phase1_pruning_table()
         file.open("resources/pruning_tables/phase1_pruning");
         if (file)
             for (int i = 0; i < NUM_PHASE1_PRUNING_TABLE; i++)
-                file << (int)phase1_pruning[i] << '\n';     // PROVERI DA LI MOZE DA UCITA KARAKTERE TOG OBLIKA, AKO NE, TREBA KORISTITI (INT) ISPRED
-                                                            // STO IMA ZA POSLEDICU DUPLO VECU ISKORISCENOST MEMEORIJE
+                file << (int)phase1_pruning[i] << '\n';
         else
             cout << ERROR_TEXT << "failed writing phase1_pruning" << RESET_TEXT << '\n';
         file.close();
     }
     else
         load_phase1_pruning_table();
+}
+
+// PHASE 2
+void inititalize_phase2_corner_UD_edge()
+{
+    for (int i = 0; i < NUM_PHASE2_CORNER_UD_EDGE; i++)
+        phase2_corner_UD_edge[i] = 255;
+}
+
+void load_phase2_corner_UD_edge()
+{
+    ifstream file;
+    file.open("resources/pruning_tables/phase2_corner_UD_edge");
+    if (file)
+    {
+        int temp;
+        for (int i = 0; i < NUM_PHASE2_CORNER_UD_EDGE; i++)
+        {
+            file >> temp;
+            phase2_corner_UD_edge[i] = temp;
+        }
+        cout << SUCCESS_TEXT << "phase2_corner_UD_edge loaded successfully" << RESET_TEXT << '\n';
+    }
+    else
+        cout << ERROR_TEXT << "failed loading phase2_corner_UD_edge" << RESET_TEXT << '\n';
+    file.close();
+}
+
+void generate_phase2_corner_UD_edge()
+{
+    inititalize_phase2_corner_UD_edge();
+
+    bool generate = false;
+    char answer;
+    cout << "Do you want to generate new " << BOLD_TEXT << "phase2_corner_UD_edge" << RESET_TEXT << " table? [y/N] ";
+    cin >> answer;
+    if (answer == 'Y' || answer == 'y')
+    {
+        cout << "Are you sure (this operation will take lot of time and memory)? [y/N] ";  
+        cin >> answer;
+        if (answer == 'Y' || answer == 'y')
+            generate = true;
+    }
+
+    if (generate)
+    {
+        queue<int> q;    
+        q.push(0);
+
+        phase2_corner_UD_edge[0] = 0; // postavljanje da je vrednost stanja 0, jednaka 0
+
+        int counter = 0;
+
+        while (!q.empty())
+        {
+            int state = q.front();
+            q.pop();
+
+            counter++;
+            int size = q.size();
+            if (counter % 10000000 == 0)
+                cout << "q ima " << size << " elemenata; a obelezeno je " << counter << " elemenata" << '\n';
+
+            int UD_edge_permutation = state % NUM_UD_EDGE_PERMUTATION;
+            int corner_permutation = state / NUM_UD_EDGE_PERMUTATION;
+
+            int moved_corner_permutation, moved_UD_edge_permutation;
+            int moved_state;
+
+            for (int move = 0; move < 18; move++)
+                if (move % 3 == 1 || move >= 12) // ovo znaci da gleda samo phase2 poteze R2, F2, L2, B2 i sve U i D
+                {
+                    moved_corner_permutation = move_corner_permutation[corner_permutation][move];
+                    moved_UD_edge_permutation = move_UD_edge_permutation[UD_edge_permutation][move];
+
+                    moved_state = moved_corner_permutation * NUM_UD_EDGE_PERMUTATION + moved_UD_edge_permutation;
+
+                    if (phase2_corner_UD_edge[moved_state] == 255) // ovo znaci da se nije pojavljivao do sad
+                    {
+                        phase2_corner_UD_edge[moved_state] = phase2_corner_UD_edge[state] + 1;
+                        q.push(moved_state);
+                    }
+                }
+        }
+
+        cout << SUCCESS_TEXT << "SVI CVOROVI SU PRODJENI I TREBALO BI DA JE SVE U NIZU phase2_corner_UD_edge" << RESET_TEXT << '\n';
+
+        ofstream file;
+        file.open("resources/pruning_tables/phase2_corner_UD_edge");
+        if (file)
+            for (int i = 0; i < NUM_PHASE2_CORNER_UD_EDGE; i++)
+                file << (int)phase2_corner_UD_edge[i] << '\n';
+        else
+            cout << ERROR_TEXT << "failed writing phase2_corner_UD_edge" << RESET_TEXT << '\n';
+        file.close();
+    }
+    else
+        load_phase2_corner_UD_edge();
+    
+}
+
+void initialize_phase2_corner_UDslice_edge()
+{
+    for (int i = 0; i < NUM_PHASE2_CORNER_UDSLICE_EDGE; i++)
+        phase2_corner_UDslice_edge[i] = 255;
+}
+
+void load_phase2_corner_UDslice_edge()
+{
+    ifstream file;
+    file.open("resources/pruning_tables/phase2_corner_UDslice_edge");
+    if (file)
+    {
+        int temp;
+        for (int i = 0; i < NUM_PHASE2_CORNER_UDSLICE_EDGE; i++)
+        {
+            file >> temp;
+            phase2_corner_UDslice_edge[i] = temp;
+        }
+        cout << SUCCESS_TEXT << "phase2_corner_UDslice_edge loaded successfully" << RESET_TEXT << '\n';
+    }
+    else
+        cout << ERROR_TEXT << "failed loading phase2_corner_UDslice_edge" << RESET_TEXT << '\n';
+    file.close();
+}
+
+void generate_phase2_corner_UDslice_edge()
+{
+    initialize_phase2_corner_UDslice_edge();
+    phase2_corner_UDslice_edge[0] = 0;
+    queue<int> q;
+    q.push(0);
+
+    bool generate = false;
+    char answer;
+    cout << "Do you want to generate new " << BOLD_TEXT << "phase2_corner_UDslice_edge" << RESET_TEXT << " table? [y/N] ";
+    cin >> answer;
+    if (answer == 'Y' || answer == 'y')
+        generate = true;
+
+    if (generate)
+    {
+        while (!q.empty())
+        {
+            int state = q.front();
+            q.pop();
+
+            int UDslice_edge_permutaiton = state % NUM_UDSLICE_EDGE_PERMUTATION;
+            int corner_permutation = state / NUM_UDSLICE_EDGE_PERMUTATION;
+
+            int moved_corner_permutation, moved_UDslice_edge_permutation;
+            int moved_state;
+            
+            for (int move = 0; move < 18; move++)
+                if (move % 3 == 1 || move >= 12)
+                {
+                    moved_corner_permutation = move_corner_permutation[corner_permutation][move];
+                    moved_UDslice_edge_permutation = move_UDslice_edge_permutation[UDslice_edge_permutaiton][move];
+
+                    moved_state = moved_corner_permutation * NUM_UDSLICE_EDGE_PERMUTATION + moved_UDslice_edge_permutation;
+                    if (phase2_corner_UDslice_edge[moved_state] == 255) // ako nije vec obidjen
+                    {
+                        phase2_corner_UDslice_edge[moved_state] = phase2_corner_UDslice_edge[state] + 1;
+                        q.push(moved_state);
+                    }
+                }
+        }
+
+        ofstream file;
+        file.open("resources/pruning_tables/phase2_corner_UDslice_edge");
+        if (file)
+            for (int i = 0; i < NUM_PHASE2_CORNER_UDSLICE_EDGE; i++)
+                file << (int)phase2_corner_UDslice_edge[i] << '\n';
+        else
+            cout << ERROR_TEXT << "failed writing phase2_corner_UDslice_edge" << RESET_TEXT << '\n';
+    }
+    else
+        load_phase2_corner_UDslice_edge();
+}
+
+void initialize_phase2_UD_edge_UDslice_edge()
+{
+    for (int i = 0; i < NUM_PHASE2_UD_EDGE_UDSLICE_EDGE; i++)
+        phase2_UD_edge_UDslice_edge[i] = 255;
+}
+
+void load_phase2_UD_edge_UDslice_edge()
+{
+    ifstream file;
+    file.open("resources/pruning_tables/phase2_UD_edge_UDslice_edge");
+    if (file)
+    {
+        int temp;
+        for (int i = 0; i < NUM_PHASE2_UD_EDGE_UDSLICE_EDGE; i++)
+        {
+            file >> temp;
+            phase2_UD_edge_UDslice_edge[i] = temp;
+        }
+        cout << SUCCESS_TEXT << "phase2_UD_edge_UDslice_edge loaded successfully" << RESET_TEXT << '\n';
+    }
+    else
+        cout << ERROR_TEXT << "failed loading phase2_UD_edge_UDslice_edge" << RESET_TEXT << '\n';
+    file.close();
+}
+
+void generate_phase2_UD_edge_UDslice_edge()
+{
+    initialize_phase2_UD_edge_UDslice_edge();
+    phase2_UD_edge_UDslice_edge[0] = 0;
+    queue<int> q;
+    q.push(0);
+
+    bool generate = false;
+    char answer;
+    cout << "Do you want to generate new " << BOLD_TEXT << "phase2_UD_edge_UDslice_edge" << RESET_TEXT << " table? [y/N] ";
+    cin >> answer;
+    if (answer == 'Y' || answer == 'y')
+        generate = true;
+
+    if (generate)
+    {
+        while (!q.empty())
+        {
+            int state = q.front();
+            q.pop();
+
+            int UDslice_edge_permutaiton = state % NUM_UDSLICE_EDGE_PERMUTATION;
+            int UD_edge_permutation = state / NUM_UDSLICE_EDGE_PERMUTATION;
+
+            int moved_UD_edge_permutation, moved_UDslice_edge_permutation;
+            int moved_state;
+            
+            for (int move = 0; move < 18; move++)
+                if (move % 3 == 1 || move >= 12)
+                {
+                    moved_UD_edge_permutation = move_UD_edge_permutation[UD_edge_permutation][move];
+                    moved_UDslice_edge_permutation = move_UDslice_edge_permutation[UDslice_edge_permutaiton][move];
+
+                    moved_state = moved_UD_edge_permutation * NUM_UDSLICE_EDGE_PERMUTATION + moved_UDslice_edge_permutation;
+                    if (phase2_UD_edge_UDslice_edge[moved_state] == 255) // ako nije vec obidjen
+                    {
+                        phase2_UD_edge_UDslice_edge[moved_state] = phase2_UD_edge_UDslice_edge[state] + 1;
+                        q.push(moved_state);
+                    }
+                }
+        }
+
+        ofstream file;
+        file.open("resources/pruning_tables/phase2_UD_edge_UDslice_edge");
+        if (file)
+            for (int i = 0; i < NUM_PHASE2_UD_EDGE_UDSLICE_EDGE; i++)
+                file << (int)phase2_UD_edge_UDslice_edge[i] << '\n';
+        else
+            cout << ERROR_TEXT << "failed writing phase2_UD_edge_UDslice_edge" << RESET_TEXT << '\n';
+    }
+    else
+        load_phase2_UD_edge_UDslice_edge();
+}
+
+void generate_phase2_pruning_tables()
+{
+    generate_phase2_corner_UD_edge();
+    generate_phase2_corner_UDslice_edge();
+    generate_phase2_UD_edge_UDslice_edge();
 }

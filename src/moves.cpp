@@ -347,7 +347,7 @@ void generate_moving_tables()
 
     char answer;
     bool generate = true;
-    cout << "Do you want to generate new moving tables? [Y/n] ";
+    cout << "Do you want to generate new " << BOLD_TEXT << "moving" << RESET_TEXT << " tables? [Y/n] ";
     cin >> answer;
     if (answer == 'N' || answer == 'n')
         generate = false;
