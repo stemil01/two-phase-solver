@@ -9,6 +9,8 @@ extern unsigned char phase2_UD_edge_UDslice_edge[NUM_PHASE2_UD_EDGE_UDSLICE_EDGE
 int get_phase1_pruning_value(unsigned int state);
 void set_phase1_value(unsigned int state, int value);
 
+unsigned char get_phase2_pruning_value(int corner_permutation, int UD_edge_permutation, int UDslice_edge_permutation);
+
 unsigned int get_phase1_state(int corner_orientation, int edge_orientation, int UDslice_edge_position);
 void get_phase1_coordinates(unsigned int state, int* corner_orientation, int* edge_orientation, int* UDslice_edge_position);
 

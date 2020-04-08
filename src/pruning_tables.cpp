@@ -10,7 +10,6 @@ unsigned char phase2_corner_UD_edge[NUM_PHASE2_CORNER_UD_EDGE];
 unsigned char phase2_corner_UDslice_edge[NUM_PHASE2_CORNER_UDSLICE_EDGE];
 unsigned char phase2_UD_edge_UDslice_edge[NUM_PHASE2_UD_EDGE_UDSLICE_EDGE];
 
-// PHASE 1
 int get_phase1_pruning_value(unsigned int state)
 {
     int index = state >> 2;
@@ -20,6 +19,16 @@ int get_phase1_pruning_value(unsigned int state)
     return (phase1_pruning[index] & mask) >> 2 * position;
 }
 
+unsigned char get_phase2_pruning_value(int corner_permutation, int UD_edge_permutation, int UDslice_edge_permutation)
+{
+    unsigned char corner_UD_edge = phase2_corner_UD_edge[corner_permutation * NUM_UD_EDGE_PERMUTATION + UD_edge_permutation];
+    unsigned char corner_UDslice_edge = phase2_corner_UDslice_edge[corner_permutation * NUM_UDSLICE_EDGE_PERMUTATION + UDslice_edge_permutation];
+    unsigned char UD_edge_UDslice_edge = phase2_UD_edge_UDslice_edge[UD_edge_permutation * NUM_UDSLICE_EDGE_PERMUTATION + UDslice_edge_permutation];
+
+    return max(corner_UD_edge, max(corner_UDslice_edge, UD_edge_UDslice_edge));
+}
+
+// PHASE 1
 void set_phase1_value(unsigned int state, int value)
 {
     int index = state >> 2;
