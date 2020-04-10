@@ -15,4 +15,4 @@ Treba napomeniti da sam program zahteva oko **2GB** memorije kada se ucitaju svi
 Kada su tabele kreirane opet znacajniju kolicinu memorije uzimaju vec pomenute dve, redom **1.5GB** i **4.6GB**. 
 Ovo naravno zvuci preterano i cudno, ali imajte u ozbiru da sam ustedeo gde kod sam mogao da algoritam postane sto jednostavniji. Originalna verzija koristi simetrije kocke koje znacajno smanjuju kolicinu podataka potrebnih za cuvanje.
 
-Celokupna ideja je preuzeta, kao sto je receno, od Herberta Kociembe koji je na svom zvanicnom sajtu detaljno objasnio detanje ovog algoritma ([zvanicna stranica] (http://kociemba.org/cube.htm))
+Celokupna ideja je preuzeta, kao sto je receno, od Herberta Kociembe koji je na svom zvanicnom sajtu detaljno objasnio detanje ovog algoritma ( [zvanicna stranica] (http://kociemba.org/cube.htm) )
