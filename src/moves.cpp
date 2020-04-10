@@ -211,6 +211,71 @@ void initialize_edge_orient()
     edge_orient[B][BR][1] = 0;
 }
 
+void print_move(int move)
+{
+    string output;
+    switch (move)
+    {
+        case 0:
+            output = "R";
+            break;
+        case 1:
+            output = "R2";
+            break;
+        case 2:
+            output = "R3";
+            break;
+        case 3:
+            output = "F";
+            break;
+        case 4:
+            output = "F2";
+            break;
+        case 5:
+            output = "F3";
+            break;
+        case 6:
+            output = "L";
+            break;
+        case 7:
+            output = "L2";
+            break;
+        case 8:
+            output = "L3";
+            break;
+        case 9:
+            output = "B";
+            break;
+        case 10:
+            output = "B2";
+            break;
+        case 11:
+            output = "B3";
+            break;
+        case 12:
+            output = "U";
+            break;
+        case 13:
+            output = "U2";
+            break;
+        case 14:
+            output = "U3";
+            break;
+        case 15:
+            output = "D";
+            break;
+        case 16:
+            output = "D2";
+            break;
+        case 17:
+            output = "D3";
+            break;
+        default:
+            break;
+    }
+    cout << output << " ";
+}
+
 // FUNKCIJE ZA UCITAVANJE IZ VEC GENERISANIH FAJLOVA
 void load_move_corner_orientation()
 {
@@ -270,14 +335,8 @@ void load_move_corner_permutation()
     if (file) 
     {
         for (int i = 0; i < NUM_CORNER_PERMUTATION; i++)
-            for (int move = 0; move < 18; move += 3)
-            {
-                if (move < 12)
-                    file >> move_corner_permutation[i][move + 1];
-                else
-                    for (int j = 0; j < 3; j++)
-                        file >> move_corner_permutation[i][move + j];
-            }
+            for (int move = 0; move < 18; move++)
+                file >> move_corner_permutation[i][move];
         
         cout << SUCCESS_TEXT << "move_corner_permutation loaded successfully" << RESET_TEXT << '\n';
     }

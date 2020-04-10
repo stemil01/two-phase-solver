@@ -8,7 +8,7 @@ using namespace std;
 void generate_move_corner_orientation()
 {
     ofstream file;
-    file.open("../resources/moving_tables/move_corner_orientation");
+    file.open("resources/moving_tables/move_corner_orientation");
     for (int i = 0; i < NUM_CORNER_ORIENTATION; i++)
     {
         int cubie_corner_orientation[8], corner_orientation;
@@ -44,7 +44,7 @@ void generate_move_corner_orientation()
 void generate_move_edge_orientation()
 {
     ofstream file;
-    file.open("../resources/moving_tables/move_edge_orientation");
+    file.open("resources/moving_tables/move_edge_orientation");
     for (int i = 0; i < NUM_EDGE_ORIENTATION; i++)
     {
         int cubie_edge_orientation[12], edge_orientation;
@@ -80,7 +80,7 @@ void generate_move_edge_orientation()
 void generate_move_UDslice_edge_position()
 {
     ofstream file;
-    file.open("../resources/moving_tables/move_UDslice_edge_position");
+    file.open("resources/moving_tables/move_UDslice_edge_position");
     for (int i = 0; i < NUM_UDSLICE_EDGE_POSITION; i++)
     {
         bool cubie_UDslice_edge_position[12];
@@ -113,7 +113,7 @@ void generate_move_UDslice_edge_position()
 void generate_move_corner_permutation()
 {
     ofstream file;
-    file.open("../resources/moving_tables/move_corner_permutation");
+    file.open("resources/moving_tables/move_corner_permutation");
     for (int i = 0; i < NUM_CORNER_PERMUTATION; i++)
     {
         Corners cubie_corner_permutation[8];
@@ -125,30 +125,16 @@ void generate_move_corner_permutation()
             for (int k = 0; k < 8; k++)
                 prev[k] = cubie_corner_permutation[k];
             
-            if (move < 12)
+            for (int j = 0; j < 3; j++)
             {
-                // radi samo phase 2 poteze
                 for (int k = 0; k < 8; k++)
-                    moved[k] = prev[move_corner[move][move_corner[move][k]]];
+                    moved[k] = prev[move_corner[move][k]];
                 for (int k = 0; k < 8; k++)
-                    prev[k] = moved[k]; 
+                    prev[k] = moved[k];
+                
                 cubie_to_corner_permutation(moved, &corner_permutation);
-                move_corner_permutation[i][move + 1] = corner_permutation;
+                move_corner_permutation[i][move + j] = corner_permutation;
                 file << corner_permutation << " ";
-            }
-            else
-            {
-                // radi sve poteze
-                for (int j = 0; j < 3; j++)
-                {
-                    for (int k = 0; k < 8; k++)
-                        moved[k] = prev[move_corner[move][k]];
-                    for (int k = 0; k < 8; k++)
-                        prev[k] = moved[k];
-                    cubie_to_corner_permutation(moved, &corner_permutation);
-                    move_corner_permutation[i][move + j] = corner_permutation;
-                    file << corner_permutation << " ";
-                }
             }
         }
         file << '\n';
@@ -160,7 +146,7 @@ void generate_move_corner_permutation()
 void generate_move_UD_edge_permutation()
 {
     ofstream file;
-    file.open("../resources/moving_tables/move_UD_edge_permutation");
+    file.open("resources/moving_tables/move_UD_edge_permutation");
     for (int i = 0; i < NUM_UD_EDGE_PERMUTATION; i++)
     {
         Edges cubie_UD_edge_permutation[8];
@@ -207,7 +193,7 @@ void generate_move_UD_edge_permutation()
 void generate_move_UDslice_edge_permutation()
 {
     ofstream file;
-    file.open("../resources/moving_tables/move_UDslice_edge_permutation");
+    file.open("resources/moving_tables/move_UDslice_edge_permutation");
     for (int i = 0; i < NUM_UDSLICE_EDGE_PERMUTATION; i++)
     {
         Edges cubie_UDslice_edge_permutation[4];

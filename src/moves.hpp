@@ -26,6 +26,8 @@ void initialize_move_edge();
 void initialize_corner_orient();
 void initialize_edge_orient();
 
+void print_move(int move);
+
 // PHASE 1
 void generate_move_corner_orientation();
 void generate_move_edge_orientation();

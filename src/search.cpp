@@ -93,69 +93,7 @@ void test_phase2_search(int corner_permutation, int UD_edge_permutation, int UDs
     }
 
     cout << "Resenje druge faze bi trebalo da bude: ";
-    for (int i = solution.size() - 1; i >= 0; i--)
-    {
-        string output;
-        switch (solution[i])
-        {
-        case 0:
-            output = "R";
-            break;
-        case 1:
-            output = "R2";
-            break;
-        case 2:
-            output = "R3";
-            break;
-        case 3:
-            output = "F";
-            break;
-        case 4:
-            output = "F2";
-            break;
-        case 5:
-            output = "F3";
-            break;
-        case 6:
-            output = "L";
-            break;
-        case 7:
-            output = "L2";
-            break;
-        case 8:
-            output = "L3";
-            break;
-        case 9:
-            output = "B";
-            break;
-        case 10:
-            output = "B2";
-            break;
-        case 11:
-            output = "B3";
-            break;
-        case 12:
-            output = "U";
-            break;
-        case 13:
-            output = "U2";
-            break;
-        case 14:
-            output = "U3";
-            break;
-        case 15:
-            output = "D";
-            break;
-        case 16:
-            output = "D2";
-            break;
-        case 17:
-            output = "D3";
-            break;
-        default:
-            break;
-        }
-        cout << output << " ";
-    }
+    for (int i = solution.size() - 1; i > 0; i--)
+        print_move(solution[i]);
     cout << '\n';
 }
