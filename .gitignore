@@ -1,3 +1,6 @@
 src/a.out
 src/run
 a.out
+.vscode
+resources/pruning_tables/phase1_pruning
+resources/pruning_tables/phase2_corner_UD_edge
