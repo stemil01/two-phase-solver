@@ -43,7 +43,17 @@ struct CordinateLevelCube
     int UD_edge_permutation;        // 0, 1, ..., 8!-1 (ukupno 40320)
 };
 
-void input(CubieLevelCube *cube);
+struct Cube
+{
+    int corner_orientation;
+    int edge_orientation;
+    int UDslice_edge_position;
+    int corner_permutation;
+    Edges cubie_edge_permutation[12];
+};
+
+Cube input();
+Cube random_moves();
 
 // corner_orientation
 void corner_orientation_to_cubie(int corner_orientation, int cubie_corner_orientation[]);

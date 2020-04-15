@@ -1,10 +1,16 @@
 #include <iostream>
 #include "coordinates.hpp"
+#include "moves.hpp"
 using namespace std;
 
-void input(CubieLevelCube *cube)
+Cube input()
 {
     string tmp_replaced_by;
+    Corners cubie_corner_permutation[8];
+    int cubie_corner_orientation[8];
+    Edges cubie_edge_permutation[12];
+    int cubie_edge_orientation[12];
+
     int tmp_orientation;
     cout << "Corners: " << '\n';
     for (int i = 0; i < 8; i++)
@@ -13,25 +19,25 @@ void input(CubieLevelCube *cube)
         cin >> tmp_replaced_by >> tmp_orientation;
 
         if (tmp_replaced_by == "URF")
-            cube->corner_permutation[i] = URF;
+            cubie_corner_permutation[i] = URF;
         else if (tmp_replaced_by == "UFL")
-            cube->corner_permutation[i] = UFL;
+            cubie_corner_permutation[i] = UFL;
         else if (tmp_replaced_by == "ULB")
-            cube->corner_permutation[i] = ULB;
+            cubie_corner_permutation[i] = ULB;
         else if (tmp_replaced_by == "UBR")
-            cube->corner_permutation[i] = UBR;
+            cubie_corner_permutation[i] = UBR;
         else if (tmp_replaced_by == "DFR")
-            cube->corner_permutation[i] = DFR;
+            cubie_corner_permutation[i] = DFR;
         else if (tmp_replaced_by == "DLF")
-            cube->corner_permutation[i] = DLF;
+            cubie_corner_permutation[i] = DLF;
         else if (tmp_replaced_by == "DBL")
-            cube->corner_permutation[i] = DBL;
+            cubie_corner_permutation[i] = DBL;
         else if (tmp_replaced_by == "DRB")
-            cube->corner_permutation[i] = DRB;
+            cubie_corner_permutation[i] = DRB;
         else
             cout << "Pogresan unos!" << '\n';
 
-        cube->corner_orientation[i] = tmp_orientation;
+        cubie_corner_orientation[i] = tmp_orientation;
     }
     cout << "Edges: " << '\n';
     for (int i = 0; i < 12; i++)
@@ -40,34 +46,92 @@ void input(CubieLevelCube *cube)
         cin >> tmp_replaced_by >> tmp_orientation;
 
         if (tmp_replaced_by == "UR")
-            cube->edge_permutation[i] = UR;
+            cubie_edge_permutation[i] = UR;
         else if (tmp_replaced_by == "UF")
-            cube->edge_permutation[i] = UF;
+            cubie_edge_permutation[i] = UF;
         else if (tmp_replaced_by == "UL")
-            cube->edge_permutation[i]= UL;
+            cubie_edge_permutation[i]= UL;
         else if (tmp_replaced_by == "UB")
-            cube->edge_permutation[i] = UB;
+            cubie_edge_permutation[i] = UB;
         else if (tmp_replaced_by == "DR")
-            cube->edge_permutation[i] = DR;
+            cubie_edge_permutation[i] = DR;
         else if (tmp_replaced_by == "DF")
-            cube->edge_permutation[i] = DF;
+            cubie_edge_permutation[i] = DF;
         else if (tmp_replaced_by == "DL")
-            cube->edge_permutation[i] = DL;
+            cubie_edge_permutation[i] = DL;
         else if (tmp_replaced_by == "DB")
-            cube->edge_permutation[i] = DB;
+            cubie_edge_permutation[i] = DB;
         else if (tmp_replaced_by == "FR")
-            cube->edge_permutation[i] = FR;
+            cubie_edge_permutation[i] = FR;
         else if (tmp_replaced_by == "FL")
-            cube->edge_permutation[i] = FL;
+            cubie_edge_permutation[i] = FL;
         else if (tmp_replaced_by == "BL")
-            cube->edge_permutation[i] = BL;
+            cubie_edge_permutation[i] = BL;
         else if (tmp_replaced_by == "BR")
-            cube->edge_permutation[i] = BR;
+            cubie_edge_permutation[i] = BR;
         else
             cout << "Pogresan unos!" << '\n';
 
-        cube->edge_orientation[i] = tmp_orientation;
+        cubie_edge_orientation[i] = tmp_orientation;
     }
+    Cube cube;
+    cubie_to_corner_orientation(cubie_corner_orientation, &cube.corner_orientation);
+    cubie_to_edge_orientation(cubie_edge_orientation, &cube.edge_orientation);
+
+    bool cubie_UDslice_edge_position[12];
+    for (int i = 0; i < 12; i++)
+    {
+        if (cubie_edge_permutation[i] == FR || cubie_edge_permutation[i] == FL || cubie_edge_permutation[i] == BL || cubie_edge_permutation[i] == BR)
+            cubie_UDslice_edge_position[i] = true;
+        else
+            cubie_UDslice_edge_position[i] = false;
+    }
+    cubie_to_UDslice_edge_position(cubie_UDslice_edge_position, &cube.UDslice_edge_position);
+    for (int i = 0; i < 12; i++)
+        cube.cubie_edge_permutation[i] = cubie_edge_permutation[i];
+
+    return cube;
+}
+
+Cube random_moves()
+{
+    srand(time(NULL));
+
+    Cube cube;
+    cube.corner_orientation = 0;
+    cube.edge_orientation = 0;
+    cube.UDslice_edge_position = 0;
+    cube.corner_permutation = 0;
+
+    for (int i = 0; i < 12; i++)
+        cube.cubie_edge_permutation[i] = (Edges)i;
+
+    Edges moved[12];
+    cout << "Potezi za kocku: ";
+    for (int i = 0; i < 20; i++)
+    {
+        int move = rand() % 18;
+        print_move(move);
+
+        cube.corner_orientation = move_corner_orientation[cube.corner_orientation][move];
+        cube.edge_orientation = move_edge_orientation[cube.edge_orientation][move];
+        cube.UDslice_edge_position = move_UDslice_edge_position[cube.UDslice_edge_position][move];
+
+        cube.corner_permutation = move_corner_permutation[cube.corner_permutation][move];
+
+        int base_move = (move / 3) * 3;
+        int rem_move = move % 3;
+        for (int j = 0; j <= rem_move; j++)
+        {
+            for (int k = 0; k < 12; k++)
+                moved[k] = cube.cubie_edge_permutation[move_edge[base_move][k]];
+            for (int k = 0; k < 12; k++)
+                cube.cubie_edge_permutation[k] = moved[k];
+        }
+    }
+    cout << '\n';
+
+    return cube;
 }
 
 void corner_orientation_to_cubie(int corner_orientation, int cubie_corner_orientation[])
