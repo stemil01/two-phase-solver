@@ -77,18 +77,8 @@ void phase2_search(int corner_permutation, int UD_edge_permutation, int UDslice_
     unsigned char depth = get_phase2_pruning_value(corner_permutation, UD_edge_permutation, UDslice_edge_permutation);
     while (depth <= limit && (*phase2_solution).empty())
     {
-        bool goon = true;
-        char answer;
-        cout << "Trenutno se pretrazuje dubina " << (int)depth << "; Da li zelite da nastavite? [Y/n] ";
-        cin >> answer;
-        if (answer == 'N' || answer == 'n')
-            goon = false;
-        
-        if (goon)
-        {
-            dfs(corner_permutation, UD_edge_permutation, UDslice_edge_permutation, 0, depth, -1, phase2_solution);
-            depth++;
-        }
+        dfs(corner_permutation, UD_edge_permutation, UDslice_edge_permutation, 0, depth, -1, phase2_solution);
+        depth++;
     }
 }
 

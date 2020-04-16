@@ -10,7 +10,7 @@ extern int move_corner_orientation[NUM_CORNER_ORIENTATION][18];
 extern int move_edge_orientation[NUM_EDGE_ORIENTATION][18];
 extern int move_UDslice_edge_position[NUM_UDSLICE_EDGE_POSITION][18];
 
-extern int move_corner_permutation[NUM_CORNER_PERMUTATION][18];             //////////////////////////////////////////////////////////////////////////////
+extern int move_corner_permutation[NUM_CORNER_PERMUTATION][18];
 extern int move_UD_edge_permutation[NUM_UD_EDGE_PERMUTATION][18];           // ovde ce biti po 10 poteza, ali zbog olaksica pravim matrice sa 18 kolona //
 extern int move_UDslice_edge_permutation[NUM_UDSLICE_EDGE_PERMUTATION][18]; ////////////////////////////////////////////////////////////////////////////// 
 

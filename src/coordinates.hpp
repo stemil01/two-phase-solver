@@ -53,7 +53,7 @@ struct Cube
 };
 
 Cube input();
-Cube random_moves();
+Cube random_moves(int num_moves);
 
 // corner_orientation
 void corner_orientation_to_cubie(int corner_orientation, int cubie_corner_orientation[]);

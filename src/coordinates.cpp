@@ -93,7 +93,7 @@ Cube input()
     return cube;
 }
 
-Cube random_moves()
+Cube random_moves(int num_moves)
 {
     srand(time(NULL));
 
@@ -108,7 +108,7 @@ Cube random_moves()
 
     Edges moved[12];
     cout << "Potezi za kocku: ";
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < num_moves; i++)
     {
         int move = rand() % 18;
         print_move(move);

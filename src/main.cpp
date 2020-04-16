@@ -13,14 +13,17 @@ int main()
     generate_phase2_pruning_tables();
 
     // testiranje pretrage
-    while (true)
+    bool go_on = true;
+    while (go_on)
     {
-        Cube cube = random_moves();
+        Cube cube = random_moves(25);
         vector<int> solution;
         search(cube, &solution);
 
         for (int i = 0; i < solution.size(); i++)
             print_move(solution[i]);
         cout << "[ " << solution.size() << " ]" << '\n';
+
+        cin >> go_on;
     }
 }
