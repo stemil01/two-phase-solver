@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
 #include "moves.hpp"
 #include "pruning_tables.hpp"
 using namespace std;
@@ -37,33 +38,35 @@ void phase1_search(int corner_orientation, int edge_orientation, int UDslice_edg
             }
         }
     }
-    cout << '\n';
 }
 
-void dfs(int corner_permutation, int UD_edge_permutation, int UDslice_edge_permutation, unsigned char current_depth, unsigned char depth, int prev, vector<int> *phase2_solution)
+void dfs(int corner_permutation, int UD_edge_permutation, int UDslice_edge_permutation, unsigned char current_depth, unsigned char depth, int prev, bool *solved, vector<int> *phase2_solution)
 {
     if (current_depth == depth)
     {
         if (corner_permutation == 0 && UD_edge_permutation == 0 && UDslice_edge_permutation == 0)
+        {
             (*phase2_solution).push_back(prev);
+            *solved = true;
+        }
     }
-    else 
+    else
     {
         unsigned char heuristic = get_phase2_pruning_value(corner_permutation, UD_edge_permutation, UDslice_edge_permutation);
-        if (current_depth +  heuristic <= depth)
+        if (current_depth + heuristic <= depth)
         {
             for (int move = 0; move < 18; move++)
                 if (move % 3 == 1 || move >= 12) // potezi faze 2
-                    if ((prev < 12 && move != prev) || (prev < 15 && move != 12 && move != 13 && move != 14) || (move != 15 && move != 16 && move != 17)) // za prethodni potez
+                    if (move / 3 != prev / 3) // za prethodni potez
                     {
-                        if ((*phase2_solution).empty())
+                        if (!(*solved))
                         {
                             int moved_corner_permutation = move_corner_permutation[corner_permutation][move];
                             int moved_UD_edge_permutation = move_UD_edge_permutation[UD_edge_permutation][move];
                             int moved_UDslice_edge_permutation = move_UDslice_edge_permutation[UDslice_edge_permutation][move];
 
-                            dfs(moved_corner_permutation, moved_UD_edge_permutation, moved_UDslice_edge_permutation, current_depth + 1, depth, move, phase2_solution);
-                            if (!(*phase2_solution).empty())
+                            dfs(moved_corner_permutation, moved_UD_edge_permutation, moved_UDslice_edge_permutation, current_depth + 1, depth, move, solved, phase2_solution);
+                            if (*solved)
                                 (*phase2_solution).push_back(prev);
                         }
                     }
@@ -71,24 +74,20 @@ void dfs(int corner_permutation, int UD_edge_permutation, int UDslice_edge_permu
     }
 }
 
-void phase2_search(int corner_permutation, int UD_edge_permutation, int UDslice_edge_permutation, vector<int> *phase2_solution)
+void phase2_search(int corner_permutation, int UD_edge_permutation, int UDslice_edge_permutation, int limit, bool *solved, vector<int> *phase2_solution)
 {
-    int limit = 18;
     unsigned char depth = get_phase2_pruning_value(corner_permutation, UD_edge_permutation, UDslice_edge_permutation);
-    while (depth <= limit && (*phase2_solution).empty())
+    while (depth < limit && !(*solved))
     {
-        dfs(corner_permutation, UD_edge_permutation, UDslice_edge_permutation, 0, depth, -1, phase2_solution);
+        dfs(corner_permutation, UD_edge_permutation, UDslice_edge_permutation, 0, depth, -1, solved, phase2_solution);
         depth++;
     }
 }
 
-void search(Cube cube, vector<int> *solution)
+bool search(Cube cube, int limit, vector<int> *solution)
 {
-    // ovde treba eksperimentisati sa potezima na pocetku
-    
     vector<int> phase1_solution;
     phase1_search(cube.corner_orientation, cube.edge_orientation, cube.UDslice_edge_position, &phase1_solution);
-
 
     Edges moved[12];
     for (int i = 0; i < phase1_solution.size(); i++)
@@ -113,12 +112,67 @@ void search(Cube cube, vector<int> *solution)
         cubie_UDslice_edge_permutation[i] = cube.cubie_edge_permutation[i + 8];
     cubie_to_UD_edge_permutation(cubie_UD_edge_permutation, &UD_edge_permutation);
     cubie_to_UDslice_edge_permutation(cubie_UDslice_edge_permutation, &UDslice_edge_permutation);
+    limit -= phase1_solution.size();
 
     vector<int> phase2_solution;
-    phase2_search(cube.corner_permutation, UD_edge_permutation, UDslice_edge_permutation, &phase2_solution);
+    bool solved = false;
+    phase2_search(cube.corner_permutation, UD_edge_permutation, UDslice_edge_permutation, limit, &solved, &phase2_solution);
 
-    for (int i = 0; i < phase1_solution.size(); i++)
-        (*solution).push_back(phase1_solution[i]);
-    for (int i = phase2_solution.size() - 2; i >= 0; i--)
-        (*solution).push_back(phase2_solution[i]);
+    if (solved)
+    {
+        for (int i = 0; i < phase1_solution.size(); i++)
+            (*solution).push_back(phase1_solution[i]);
+        for (int i = phase2_solution.size() - 2; i >= 0; i--)
+            (*solution).push_back(phase2_solution[i]);
+    }
+
+    return solved;
+}
+
+void random_moves_search(Cube cube, int current_depth, int depth, int prev, int *limit, vector<int> *prefix)
+{
+    if (current_depth == depth)
+    {
+        vector<int> solution;
+        bool solved = search(cube, *limit - depth, &solution);
+        if (solved)
+        {
+            for (int i = 0; i < (*prefix).size(); i++)
+                print_move((*prefix)[i]);
+            for (int i = 0; i < solution.size(); i++)
+                print_move(solution[i]);
+            cout << "[ " << solution.size() + depth << " ]" << '\n';
+
+            *limit = solution.size() + depth;
+        }
+    }
+    else
+    {
+        for (int move = 0; move < 18; move++)
+            if (move / 3 != prev / 3)  // ako potezi nisu sa iste strane
+            {
+                Cube moved_cube = move_cube(cube, move);
+                (*prefix).push_back(move);
+                random_moves_search(moved_cube, current_depth + 1, depth, move, limit, prefix);
+                (*prefix).pop_back();
+            }
+    }
+}
+
+void improve_search(Cube cube)
+{
+    vector<int> solution;
+    search(cube, 31, &solution);
+    for (int i = 0; i < solution.size(); i++)
+        print_move(solution[i]);
+    cout << "[ " << solution.size() << " ]" << '\n';
+
+    int limit = solution.size();
+    
+    vector<int> prefix;
+    for (int depth = 1; depth <= 6; depth++)
+    {
+        random_moves_search(cube, 0, depth, -1, &limit, &prefix);
+        cout << "zavrsena dubina " << depth << '\n';
+    }
 }

@@ -17,12 +17,7 @@ int main()
     while (go_on)
     {
         Cube cube = random_moves(25);
-        vector<int> solution;
-        search(cube, &solution);
-
-        for (int i = 0; i < solution.size(); i++)
-            print_move(solution[i]);
-        cout << "[ " << solution.size() << " ]" << '\n';
+        improve_search(cube);
 
         cin >> go_on;
     }

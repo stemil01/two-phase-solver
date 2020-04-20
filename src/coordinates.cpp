@@ -93,6 +93,33 @@ Cube input()
     return cube;
 }
 
+Cube move_cube(Cube cube, int move)
+{
+    Cube moved_cube;
+
+    moved_cube.corner_orientation = move_corner_orientation[cube.corner_orientation][move];
+    moved_cube.edge_orientation = move_edge_orientation[cube.edge_orientation][move];
+    moved_cube.UDslice_edge_position = move_UDslice_edge_position[cube.UDslice_edge_position][move];
+
+    moved_cube.corner_permutation = move_corner_permutation[cube.corner_permutation][move];
+
+    Edges moved[12];
+    int base_move = (move / 3) * 3;
+    int rem_move = move % 3;
+    for (int j = 0; j <= rem_move; j++)
+    {
+        for (int k = 0; k < 12; k++)
+            moved[k] = cube.cubie_edge_permutation[move_edge[base_move][k]];
+        for (int k = 0; k < 12; k++)
+            cube.cubie_edge_permutation[k] = moved[k];
+    }
+
+    for (int i = 0; i < 12; i++)
+        moved_cube.cubie_edge_permutation[i] = cube.cubie_edge_permutation[i];
+
+    return moved_cube;
+}
+
 Cube random_moves(int num_moves)
 {
     srand(time(NULL));
@@ -106,28 +133,12 @@ Cube random_moves(int num_moves)
     for (int i = 0; i < 12; i++)
         cube.cubie_edge_permutation[i] = (Edges)i;
 
-    Edges moved[12];
     cout << "Potezi za kocku: ";
     for (int i = 0; i < num_moves; i++)
     {
         int move = rand() % 18;
         print_move(move);
-
-        cube.corner_orientation = move_corner_orientation[cube.corner_orientation][move];
-        cube.edge_orientation = move_edge_orientation[cube.edge_orientation][move];
-        cube.UDslice_edge_position = move_UDslice_edge_position[cube.UDslice_edge_position][move];
-
-        cube.corner_permutation = move_corner_permutation[cube.corner_permutation][move];
-
-        int base_move = (move / 3) * 3;
-        int rem_move = move % 3;
-        for (int j = 0; j <= rem_move; j++)
-        {
-            for (int k = 0; k < 12; k++)
-                moved[k] = cube.cubie_edge_permutation[move_edge[base_move][k]];
-            for (int k = 0; k < 12; k++)
-                cube.cubie_edge_permutation[k] = moved[k];
-        }
+        cube = move_cube(cube, move);
     }
     cout << '\n';
 

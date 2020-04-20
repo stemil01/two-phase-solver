@@ -53,6 +53,7 @@ struct Cube
 };
 
 Cube input();
+Cube move_cube(Cube cube, int move);
 Cube random_moves(int num_moves);
 
 // corner_orientation
