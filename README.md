@@ -13,7 +13,7 @@ $ make
 ```
 Treba napomeniti da sam program zahteva oko **2GB** memorije kada se ucitaju svi podaci i za samo ucitavanje je potrebno oko 1-2 minuta. Ukoliko nema vec generisanih tabela, onda je neophodno generisati ih. Tabele *phase1_pruning* i *phase2_corner_UD_edge* su najzahtevnije. Za prvu je potrebno oko 20 minuta za pravljenje i program uzima oko **7GB** memorije u toku rada, za drugu je potrebno oko 10 minuta i potrebno je oko **6GB** memorije.
 Kada su tabele kreirane opet znacajniju kolicinu memorije uzimaju vec pomenute dve, redom **1.5GB** i **4.6GB**. 
-Ovo naravno zvuci preterano i cudno, ali imajte u ozbiru da sam ustedeo gde kod sam mogao da algoritam postane sto jednostavniji. Originalna verzija koristi simetrije kocke koje znacajno smanjuju kolicinu podataka potrebnih za cuvanje.
+Ovo naravno zvuci preterano i cudno, ali pokusao sam da stedim gde kod sam mogao da bi algoritam bio sto jednostavniji, to je placeno memorijom. Originalna verzija koristi simetrije kocke koje znacajno smanjuju kolicinu podataka potrebnih za cuvanje.
 
 Celokupna ideja je preuzeta, kao sto je receno, od Herberta Kociembe koji je na svom zvanicnom sajtu detaljno objasnio rad ovog algoritma ([zvanicna stranica])
 
