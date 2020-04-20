@@ -66,7 +66,7 @@ void dfs(int corner_permutation, int UD_edge_permutation, int UDslice_edge_permu
                             int moved_UDslice_edge_permutation = move_UDslice_edge_permutation[UDslice_edge_permutation][move];
 
                             dfs(moved_corner_permutation, moved_UD_edge_permutation, moved_UDslice_edge_permutation, current_depth + 1, depth, move, solved, phase2_solution);
-                            if (*solved)
+                            if (*solved && current_depth > 0)
                                 (*phase2_solution).push_back(prev);
                         }
                     }
@@ -122,7 +122,30 @@ bool search(Cube cube, int limit, vector<int> *solution)
     {
         for (int i = 0; i < phase1_solution.size(); i++)
             (*solution).push_back(phase1_solution[i]);
-        for (int i = phase2_solution.size() - 2; i >= 0; i--)
+
+        // ovo provera da li se resenje prve faze zavrsava potezom iste strane
+        // kao i pocetak resenja druge faze
+        int base1 = phase1_solution.back() / 3;
+        int rem1 = phase1_solution.back() % 3;
+        int base2 = phase2_solution.back() / 3;
+        int rem2 = phase2_solution.back() % 3;
+        if (base1 == base2)
+        {
+            int rem_new = rem1 + rem2;
+            if (rem_new == 2)
+                (*solution).pop_back();
+            else
+            {
+                if (rem_new == 0 || rem_new == 1)
+                    rem_new++;
+                else
+                    rem_new %= 3;
+                (*solution)[(*solution).size() - 1] = 3 * base1 + rem_new;
+            }
+            phase2_solution.pop_back();
+        }
+
+        for (int i = phase2_solution.size() - 1; i >= 0; i--)
             (*solution).push_back(phase2_solution[i]);
     }
 
@@ -161,6 +184,7 @@ void random_moves_search(Cube cube, int current_depth, int depth, int prev, int 
 
 void improve_search(Cube cube)
 {
+    // problem nastaje ako se resenje faze zavrsava potezom iste strane sa pocetkom resenja faze 2
     vector<int> solution;
     search(cube, 31, &solution);
     for (int i = 0; i < solution.size(); i++)

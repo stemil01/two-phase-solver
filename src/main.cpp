@@ -12,7 +12,6 @@ int main()
     generate_phase1_pruning_table();
     generate_phase2_pruning_tables();
 
-    // testiranje pretrage
     bool go_on = true;
     while (go_on)
     {
