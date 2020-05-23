@@ -284,13 +284,34 @@ void load_move_corner_orientation()
     if (file) 
     {
         for (int i = 0; i < NUM_CORNER_ORIENTATION; i++)
+        {
             for (int move = 0; move < 18; move++)
                 file >> move_corner_orientation[i][move];
-    
-        cout << SUCCESS_TEXT << "move_corner_orienation loaded successfully" << RESET_TEXT << '\n';
+
+            if (i % 10 == 0 || i == NUM_CORNER_ORIENTATION - 1)
+            {
+                int progress = ((double)(i + 1) / NUM_CORNER_ORIENTATION) * 100;
+                cout << "move_corner_orientation \t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar <= progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
+
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
+        }
     }
     else
-        cout << ERROR_TEXT << "failed loading move_corner_orientation file" << RESET_TEXT << '\n';    
+        cout << ERROR_TEXT << "ucitavanje iz fajla move_corner_orientation nije uspelo" << RESET_TEXT << '\n';    
     file.close();
 }
 
@@ -301,13 +322,34 @@ void load_move_edge_orientation()
     if (file) 
     {
         for (int i = 0; i < NUM_EDGE_ORIENTATION; i++)
+        {
             for (int move = 0; move < 18; move++)
                 file >> move_edge_orientation[i][move];
 
-        cout << SUCCESS_TEXT << "move_edge_orientation loaded successfully" << RESET_TEXT << '\n';
+            if (i % 10 == 0 || i == NUM_EDGE_ORIENTATION - 1)
+            {
+                int progress = ((double)(i + 1) / NUM_EDGE_ORIENTATION) * 100;
+                cout << "move_edge_orientation \t\t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar <= progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
+
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
+        }
     }
     else
-        cout << ERROR_TEXT << "failed loading move_edge_orientation file" << RESET_TEXT << '\n';    
+        cout << ERROR_TEXT << "ucitavanje iz fajla move_edge_orientation nije uspelo" << RESET_TEXT << '\n';
     file.close();
 }
 
@@ -318,13 +360,34 @@ void load_move_UDslice_edge_position()
     if (file) 
     {
         for (int i = 0; i < NUM_UDSLICE_EDGE_POSITION; i++)
+        {
             for (int move = 0; move < 18; move++)
                 file >> move_UDslice_edge_position[i][move];
-        
-        cout << SUCCESS_TEXT << "move_UDslice_edge_position loaded successfully" << RESET_TEXT << '\n';
+
+            if (i % 10 == 0 || i == NUM_UDSLICE_EDGE_POSITION - 1)
+            {
+                int progress = ((double)(i + 1) / NUM_UDSLICE_EDGE_POSITION) * 100;
+                cout << "move_UDslice_edge_position \t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar <= progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
+
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
+        }
     }
     else
-        cout << ERROR_TEXT << "failed loading move_UDslice_edge_position file" << RESET_TEXT << '\n';    
+        cout << ERROR_TEXT << "ucitavanje iz fajla move_UDslice_edge_position nije uspelo" << RESET_TEXT << '\n';    
     file.close();
 }
 
@@ -335,13 +398,34 @@ void load_move_corner_permutation()
     if (file) 
     {
         for (int i = 0; i < NUM_CORNER_PERMUTATION; i++)
+        {
             for (int move = 0; move < 18; move++)
                 file >> move_corner_permutation[i][move];
-        
-        cout << SUCCESS_TEXT << "move_corner_permutation loaded successfully" << RESET_TEXT << '\n';
+
+            if (i % 10 == 0 || i == NUM_CORNER_PERMUTATION - 1)
+            {
+                int progress = ((double)(i + 1) / NUM_CORNER_PERMUTATION) * 100;
+                cout << "move_corner_permutation \t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar <= progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
+
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
+        }
     }
     else
-        cout << ERROR_TEXT << "failed loading move_corner_permutation file" << RESET_TEXT << '\n';    
+        cout << ERROR_TEXT << "ucitavanje iz fajla move_corner_permutation nije uspelo" << RESET_TEXT << '\n';    
     file.close();
 }
 
@@ -352,6 +436,7 @@ void load_move_UD_edge_permutation()
     if (file) 
     {
         for (int i = 0; i < NUM_UD_EDGE_PERMUTATION; i++)
+        {
             for (int move = 0; move < 18; move += 3)
             {
                 if (move < 12)
@@ -361,10 +446,30 @@ void load_move_UD_edge_permutation()
                         file >> move_UD_edge_permutation[i][move + j];
             }
 
-        cout << SUCCESS_TEXT << "move_UD_edge_permutation loaded successfully" << RESET_TEXT << '\n';
+            if (i % 10 == 0 || i == NUM_UD_EDGE_PERMUTATION - 1)
+            {
+                int progress = ((double)(i + 1) / NUM_UD_EDGE_PERMUTATION) * 100;
+                cout << "move_UD_edge_permutation \t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar <= progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
+
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
+        }
     }
     else
-        cout << ERROR_TEXT << "failed loading move_UD_edge_permutation file" << RESET_TEXT << '\n';    
+        cout << ERROR_TEXT << "ucitavanje iz fajla move_UD_edge_permutation nije uspelo" << RESET_TEXT << '\n';    
     file.close();
 }
 
@@ -375,6 +480,7 @@ void load_move_UDslice_edge_permutation()
     if (file) 
     {
         for (int i = 0; i < NUM_UDSLICE_EDGE_PERMUTATION; i++)
+        {
             for (int move = 0; move < 18; move += 3)
             {
                 if (move < 12)
@@ -384,10 +490,30 @@ void load_move_UDslice_edge_permutation()
                         file >> move_UDslice_edge_permutation[i][move + j];
             }
 
-        cout << SUCCESS_TEXT << "move_UDslice_edge_permutation loaded successfully" << RESET_TEXT << '\n';
+            if (i % 10 == 0 || i == NUM_UDSLICE_EDGE_PERMUTATION - 1)
+            {
+                int progress = ((double)(i + 1) / NUM_UDSLICE_EDGE_PERMUTATION) * 100;
+                cout << "move_UDslice_edge_permutation \t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar <= progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
+
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
+        }
     }
     else
-        cout << ERROR_TEXT << "failed loading move_UDslice_edge_permutation file" << RESET_TEXT << '\n';    
+        cout << ERROR_TEXT << "ucitavanje iz fajla move_UDslice_edge_permutation nije uspelo" << RESET_TEXT << '\n';    
     file.close();
 }
 

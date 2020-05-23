@@ -152,7 +152,7 @@ bool search(Cube cube, int limit, vector<int> *solution)
     return solved;
 }
 
-void random_moves_search(Cube cube, int current_depth, int depth, int prev, int *limit, vector<int> *prefix)
+void random_moves_search(Cube cube, int current_depth, int depth, int prev, int *limit, vector<int> *prefix, chrono::steady_clock::time_point begin, int time_limit)
 {
     if (current_depth == depth)
     {
@@ -174,15 +174,19 @@ void random_moves_search(Cube cube, int current_depth, int depth, int prev, int 
         for (int move = 0; move < 18; move++)
             if (move / 3 != prev / 3)  // ako potezi nisu sa iste strane
             {
-                Cube moved_cube = move_cube(cube, move);
-                (*prefix).push_back(move);
-                random_moves_search(moved_cube, current_depth + 1, depth, move, limit, prefix);
-                (*prefix).pop_back();
+                chrono::steady_clock::time_point current = chrono::steady_clock::now();
+                if (chrono::duration_cast<chrono::milliseconds>(current - begin).count() < time_limit)
+                {
+                    Cube moved_cube = move_cube(cube, move);
+                    (*prefix).push_back(move);
+                    random_moves_search(moved_cube, current_depth + 1, depth, move, limit, prefix, begin, time_limit);
+                    (*prefix).pop_back();
+                }
             }
     }
 }
 
-void improve_search(Cube cube)
+void improve_search(Cube cube, int time_limit)
 {
     // problem nastaje ako se resenje faze zavrsava potezom iste strane sa pocetkom resenja faze 2
     vector<int> solution;
@@ -193,10 +197,17 @@ void improve_search(Cube cube)
 
     int limit = solution.size();
     
+    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+    auto time = chrono::duration_cast<chrono::milliseconds>(begin - begin).count();
     vector<int> prefix;
-    for (int depth = 1; depth <= 6; depth++)
+    int depth = 1;
+    while (time < time_limit)
     {
-        random_moves_search(cube, 0, depth, -1, &limit, &prefix);
-        cout << "zavrsena dubina " << depth << '\n';
+        random_moves_search(cube, 0, depth, -1, &limit, &prefix, begin, time_limit);
+        chrono::steady_clock::time_point current = chrono::steady_clock::now();
+        time = chrono::duration_cast<chrono::milliseconds>(current - begin).count();
+
+        depth++;
     }
+    cout << "zavrsena pretraga, do dubine " << depth - 1 << '\n';
 }

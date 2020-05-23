@@ -195,6 +195,8 @@ void cubie_to_edge_orientation(int cubie_edge_orientation[], int *edge_orientati
     *edge_orientation = res;
 }
 
+// ovo je moglo jednostavnije da se napise
+// https://en.wikipedia.org/wiki/Combinatorial_number_system
 void UDslice_edge_position_to_cubie(int UDslice_edge_position, bool cubie_UDslice_edge_position[])
 {
     // gledamo sa desna radi jednostavnosti
