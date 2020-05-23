@@ -72,11 +72,31 @@ void load_phase1_pruning_table()
         {
             file >> temp;
             phase1_pruning[i] = temp;
+
+            if (i % 1000000 == 0 || i == NUM_PHASE1_PRUNING_TABLE - 1)
+            {
+                int progress = ((double)(i + 1) / NUM_PHASE1_PRUNING_TABLE) * 100;
+                cout << "phase1_pruning \t\t\t\t\t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar < progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
+
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
         }
-        cout << SUCCESS_TEXT << "phase1_pruning loaded successfully" << RESET_TEXT << '\n';
     }
     else
-        cout << ERROR_TEXT << "loading phase1_pruning failed" << RESET_TEXT << '\n';
+        cout << ERROR_TEXT << "ucitavanje iz fajla phase1_pruning nije uspelo" << RESET_TEXT << '\n';
     file.close();
 }
 
@@ -86,11 +106,11 @@ void generate_phase1_pruning_table()
 
     bool generate = false;
     char answer;
-    cout << "Do you want to generate new " << BOLD_TEXT << "phase1_pruning" << RESET_TEXT << " table? [y/N] ";
+    cout << "Da li zelite da generisete novu " << BOLD_TEXT << "phase1_pruning" << RESET_TEXT << " tabelu? [y/N] ";
     cin >> answer;
     if (answer == 'Y' || answer == 'y')
     {
-        cout << "Are you sure (this operation will take lot of time and memory)? [y/N] ";  
+        cout << "Da li ste sigurni (ova operacija ce uzeti dosta vremena i memorije)? [y/N] ";  
         cin >> answer;
         if (answer == 'Y' || answer == 'y')
             generate = true;
@@ -109,11 +129,6 @@ void generate_phase1_pruning_table()
         {
             unsigned int state = q.front();
             q.pop();
-
-            counter++;
-            unsigned int size = q.size();
-            if (counter % 10000000 == 0)
-                cout << "q ima " << size << " elemenata; a obelezeno je " << counter << " elemenata" << '\n';
 
             int corner_orientation, edge_orientation, UDslice_edge_position;
             get_phase1_coordinates(state, &corner_orientation, &edge_orientation, &UDslice_edge_position);
@@ -148,17 +163,60 @@ void generate_phase1_pruning_table()
                     q.push(moved_state);
                 }
             }
-        }
 
-        cout << SUCCESS_TEXT << "SVI CVOROVI SU PRODJENI I TREBALO BI DA JE SVE U NIZU phase1_pruning" << RESET_TEXT << '\n';
+            counter++;
+            if (counter % 10000000 == 1 || counter ==  (unsigned int)4 * NUM_PHASE1_PRUNING_TABLE)
+            {
+                int progress = ((double)counter / NUM_PHASE1_PRUNING_TABLE) * 25;
+                cout << "generisanje tabele phase1_pruning \t\t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar < progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
+
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
+        }
 
         ofstream file;
         file.open("resources/pruning_tables/phase1_pruning");
         if (file)
             for (int i = 0; i < NUM_PHASE1_PRUNING_TABLE; i++)
+            {
                 file << (int)phase1_pruning[i] << '\n';
+
+                if (i % 1000000 == 0 || i == NUM_PHASE1_PRUNING_TABLE - 1)
+                {
+                    int progress = ((double)(i + 1) / NUM_PHASE1_PRUNING_TABLE) * 100;
+                    cout << "generisanje fajla phase1_pruning \t\t\t [";
+                    for (int bar = 0; bar < 100; bar++)
+                    {
+                        if (bar < progress)
+                            cout << "#";
+                        else
+                            cout << "-";
+                    }
+
+                    if (progress < 100)
+                    {
+                        cout << "] " << (int)progress << "%\r";
+                        cout.flush();
+                    }
+                    else
+                        cout << "] " << (int)progress << "%\n";
+                }
+            }
         else
-            cout << ERROR_TEXT << "failed writing phase1_pruning" << RESET_TEXT << '\n';
+            cout << ERROR_TEXT << "generisanje fajla phase1_pruning nije uspelo" << RESET_TEXT << '\n';
         file.close();
     }
     else
@@ -183,11 +241,31 @@ void load_phase2_corner_UD_edge()
         {
             file >> temp;
             phase2_corner_UD_edge[i] = temp;
+
+            if (i % 1000000 == 0 || i == NUM_PHASE2_CORNER_UD_EDGE - 1)
+            {
+                int progress = ((double)(i + 1) / NUM_PHASE2_CORNER_UD_EDGE) * 100;
+                cout << "phase2_corner_UD_edge \t\t\t\t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar < progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
+
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
         }
-        cout << SUCCESS_TEXT << "phase2_corner_UD_edge loaded successfully" << RESET_TEXT << '\n';
     }
     else
-        cout << ERROR_TEXT << "failed loading phase2_corner_UD_edge" << RESET_TEXT << '\n';
+        cout << ERROR_TEXT << "ucitavanje iz fajla phase2_corner_UD_edge nije uspelo" << RESET_TEXT << '\n';
     file.close();
 }
 
@@ -197,11 +275,11 @@ void generate_phase2_corner_UD_edge()
 
     bool generate = false;
     char answer;
-    cout << "Do you want to generate new " << BOLD_TEXT << "phase2_corner_UD_edge" << RESET_TEXT << " table? [y/N] ";
+    cout << "Da li zelite da generisete novu " << BOLD_TEXT << "phase2_corner_UD_edge" << RESET_TEXT << " tabelu? [y/N] ";
     cin >> answer;
     if (answer == 'Y' || answer == 'y')
     {
-        cout << "Are you sure (this operation will take lot of time and memory)? [y/N] ";  
+        cout << "Da li ste sigurni (ova operacija ce uzeti dosta vremena i memorije)? [y/N] ";  
         cin >> answer;
         if (answer == 'Y' || answer == 'y')
             generate = true;
@@ -220,11 +298,6 @@ void generate_phase2_corner_UD_edge()
         {
             int state = q.front();
             q.pop();
-
-            counter++;
-            int size = q.size();
-            if (counter % 10000000 == 0)
-                cout << "q ima " << size << " elemenata; a obelezeno je " << counter << " elemenata" << '\n';
 
             int UD_edge_permutation = state % NUM_UD_EDGE_PERMUTATION;
             int corner_permutation = state / NUM_UD_EDGE_PERMUTATION;
@@ -246,17 +319,60 @@ void generate_phase2_corner_UD_edge()
                         q.push(moved_state);
                     }
                 }
-        }
+            
+            counter++;
+            if (counter % 10000000 == 1 || counter ==  NUM_PHASE2_CORNER_UD_EDGE)
+            {
+                int progress = ((double)counter / NUM_PHASE2_CORNER_UD_EDGE) * 100;
+                cout << "generisanje tabele phase2_corner_UD_edge \t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar < progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
 
-        cout << SUCCESS_TEXT << "SVI CVOROVI SU PRODJENI I TREBALO BI DA JE SVE U NIZU phase2_corner_UD_edge" << RESET_TEXT << '\n';
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
+        }
 
         ofstream file;
         file.open("resources/pruning_tables/phase2_corner_UD_edge");
         if (file)
             for (int i = 0; i < NUM_PHASE2_CORNER_UD_EDGE; i++)
+            {
                 file << (int)phase2_corner_UD_edge[i] << '\n';
+
+                if (i % 10000000 == 0 || i ==  NUM_PHASE2_CORNER_UD_EDGE - 1)
+                {
+                    int progress = ((double)(i + 1) / NUM_PHASE2_CORNER_UD_EDGE) * 100;
+                    cout << "generisanje fajla phase2_corner_UD_edge \t\t [";
+                    for (int bar = 0; bar < 100; bar++)
+                    {
+                        if (bar < progress)
+                            cout << "#";
+                        else
+                            cout << "-";
+                    }
+
+                    if (progress < 100)
+                    {
+                        cout << "] " << (int)progress << "%\r";
+                        cout.flush();
+                    }
+                    else
+                        cout << "] " << (int)progress << "%\n";
+                }
+            }
         else
-            cout << ERROR_TEXT << "failed writing phase2_corner_UD_edge" << RESET_TEXT << '\n';
+            cout << ERROR_TEXT << "generisanje fajla phase2_corner_UD_edge nije uspelo" << RESET_TEXT << '\n';
         file.close();
     }
     else
@@ -281,11 +397,31 @@ void load_phase2_corner_UDslice_edge()
         {
             file >> temp;
             phase2_corner_UDslice_edge[i] = temp;
+
+            if (i % 1000 == 0 || i == NUM_PHASE2_CORNER_UDSLICE_EDGE - 1)
+            {
+                int progress = ((double)(i + 1) / NUM_PHASE2_CORNER_UDSLICE_EDGE) * 100;
+                cout << "phase2_corner_UDslice_edge \t\t\t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar < progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
+
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
         }
-        cout << SUCCESS_TEXT << "phase2_corner_UDslice_edge loaded successfully" << RESET_TEXT << '\n';
     }
     else
-        cout << ERROR_TEXT << "failed loading phase2_corner_UDslice_edge" << RESET_TEXT << '\n';
+        cout << ERROR_TEXT << "ucitavanje iz fajla phase2_corner_UDslice_edge nije uspelo" << RESET_TEXT << '\n';
     file.close();
 }
 
@@ -298,13 +434,15 @@ void generate_phase2_corner_UDslice_edge()
 
     bool generate = false;
     char answer;
-    cout << "Do you want to generate new " << BOLD_TEXT << "phase2_corner_UDslice_edge" << RESET_TEXT << " table? [y/N] ";
+    cout << "Da li zelite da generisete novu " << BOLD_TEXT << "phase2_corner_UDslice_edge" << RESET_TEXT << " tabelu? [y/N] ";
     cin >> answer;
     if (answer == 'Y' || answer == 'y')
         generate = true;
 
     if (generate)
     {
+        int counter = 0;
+
         while (!q.empty())
         {
             int state = q.front();
@@ -329,15 +467,60 @@ void generate_phase2_corner_UDslice_edge()
                         q.push(moved_state);
                     }
                 }
+
+            counter++;
+            if (counter % 1000 == 1 || counter ==  NUM_PHASE2_CORNER_UDSLICE_EDGE)
+            {
+                int progress = ((double)counter / NUM_PHASE2_CORNER_UDSLICE_EDGE) * 100;
+                cout << "generisanje tabele phase2_corner_UDslice_edge \t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar < progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
+
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
         }
 
         ofstream file;
         file.open("resources/pruning_tables/phase2_corner_UDslice_edge");
         if (file)
             for (int i = 0; i < NUM_PHASE2_CORNER_UDSLICE_EDGE; i++)
+            {
                 file << (int)phase2_corner_UDslice_edge[i] << '\n';
+
+                if (i % 1000 == 0 || i == NUM_PHASE2_CORNER_UDSLICE_EDGE - 1)
+                {
+                    int progress = ((double)(i + 1) / NUM_PHASE2_CORNER_UDSLICE_EDGE) * 100;
+                    cout << "generisanje fajla phase2_corner_UDslice_edge \t\t [";
+                    for (int bar = 0; bar < 100; bar++)
+                    {
+                        if (bar < progress)
+                            cout << "#";
+                        else
+                            cout << "-";
+                    }
+
+                    if (progress < 100)
+                    {
+                        cout << "] " << (int)progress << "%\r";
+                        cout.flush();
+                    }
+                    else
+                        cout << "] " << (int)progress << "%\n";
+                }
+            }
         else
-            cout << ERROR_TEXT << "failed writing phase2_corner_UDslice_edge" << RESET_TEXT << '\n';
+            cout << ERROR_TEXT << "generisanje fajla phase2_corner_UDslice_edge nije uspelo" << RESET_TEXT << '\n';
     }
     else
         load_phase2_corner_UDslice_edge();
@@ -360,11 +543,31 @@ void load_phase2_UD_edge_UDslice_edge()
         {
             file >> temp;
             phase2_UD_edge_UDslice_edge[i] = temp;
+
+            if (i % 1000 == 0 || i == NUM_PHASE2_UD_EDGE_UDSLICE_EDGE - 1)
+            {
+                int progress = ((double)(i + 1) / NUM_PHASE2_UD_EDGE_UDSLICE_EDGE) * 100;
+                cout << "phase2_UD_edge_UDslice_edge \t\t\t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar < progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
+
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
         }
-        cout << SUCCESS_TEXT << "phase2_UD_edge_UDslice_edge loaded successfully" << RESET_TEXT << '\n';
     }
     else
-        cout << ERROR_TEXT << "failed loading phase2_UD_edge_UDslice_edge" << RESET_TEXT << '\n';
+        cout << ERROR_TEXT << "ucitavanje iz fajla phase2_UD_edge_UDslice_edge nije uspelo" << RESET_TEXT << '\n';
     file.close();
 }
 
@@ -377,13 +580,15 @@ void generate_phase2_UD_edge_UDslice_edge()
 
     bool generate = false;
     char answer;
-    cout << "Do you want to generate new " << BOLD_TEXT << "phase2_UD_edge_UDslice_edge" << RESET_TEXT << " table? [y/N] ";
+    cout << "Da li zelite da generisete novu " << BOLD_TEXT << "phase2_UD_edge_UDslice_edge" << RESET_TEXT << " tabelu? [y/N] ";
     cin >> answer;
     if (answer == 'Y' || answer == 'y')
         generate = true;
 
     if (generate)
     {
+        int counter = 0;
+
         while (!q.empty())
         {
             int state = q.front();
@@ -408,15 +613,60 @@ void generate_phase2_UD_edge_UDslice_edge()
                         q.push(moved_state);
                     }
                 }
+
+            counter++;
+            if (counter % 1000 == 1 || counter ==  NUM_PHASE2_UD_EDGE_UDSLICE_EDGE)
+            {
+                int progress = ((double)counter / NUM_PHASE2_UD_EDGE_UDSLICE_EDGE) * 100;
+                cout << "generisanje tabele phase2_UD_edge_UDslice_edge \t\t [";
+                for (int bar = 0; bar < 100; bar++)
+                {
+                    if (bar < progress)
+                        cout << "#";
+                    else
+                        cout << "-";
+                }
+
+                if (progress < 100)
+                {
+                    cout << "] " << (int)progress << "%\r";
+                    cout.flush();
+                }
+                else
+                    cout << "] " << (int)progress << "%\n";
+            }
         }
 
         ofstream file;
         file.open("resources/pruning_tables/phase2_UD_edge_UDslice_edge");
         if (file)
             for (int i = 0; i < NUM_PHASE2_UD_EDGE_UDSLICE_EDGE; i++)
+            {
                 file << (int)phase2_UD_edge_UDslice_edge[i] << '\n';
+
+                if (i % 1000 == 0 || i == NUM_PHASE2_UD_EDGE_UDSLICE_EDGE - 1)
+                {
+                    int progress = ((double)(i + 1) / NUM_PHASE2_UD_EDGE_UDSLICE_EDGE) * 100;
+                    cout << "generisanje fajla phase2_UD_edge_UDslice_edge \t\t [";
+                    for (int bar = 0; bar < 100; bar++)
+                    {
+                        if (bar < progress)
+                            cout << "#";
+                        else
+                            cout << "-";
+                    }
+
+                    if (progress < 100)
+                    {
+                        cout << "] " << (int)progress << "%\r";
+                        cout.flush();
+                    }
+                    else
+                        cout << "] " << (int)progress << "%\n";
+                }
+            }
         else
-            cout << ERROR_TEXT << "failed writing phase2_UD_edge_UDslice_edge" << RESET_TEXT << '\n';
+            cout << ERROR_TEXT << "generisanje fajla phase2_UD_edge_UDslice_edge nije uspelo" << RESET_TEXT << '\n';
     }
     else
         load_phase2_UD_edge_UDslice_edge();

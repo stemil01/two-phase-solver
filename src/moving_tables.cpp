@@ -36,9 +36,29 @@ void generate_move_corner_orientation()
             }
         }
         file << '\n';
+
+        if (i % 10 == 0 || i == NUM_CORNER_ORIENTATION - 1)
+        {
+            int progress = ((double)(i + 1) / NUM_CORNER_ORIENTATION) * 100;
+            cout << "generisanje fajla move_corner_orientation \t\t [";
+            for (int bar = 0; bar < 100; bar++)
+            {
+                if (bar < progress)
+                    cout << "#";
+                else
+                    cout << "-";
+            }
+
+            if (progress < 100)
+            {
+                cout << "] " << (int)progress << "%\r";
+                cout.flush();
+            }
+            else
+                cout << "] " << (int)progress << "%\n";
+        }
     }
     file.close();
-    cout << "move_corner_orientation generated" << '\n';
 }
 
 void generate_move_edge_orientation()
@@ -72,9 +92,29 @@ void generate_move_edge_orientation()
             }
         }
         file << '\n';
+
+        if (i % 10 == 0 || i == NUM_EDGE_ORIENTATION - 1)
+        {
+            int progress = ((double)(i + 1) / NUM_EDGE_ORIENTATION) * 100;
+            cout << "generisanje fajla move_edge_orientation \t\t [";
+            for (int bar = 0; bar < 100; bar++)
+            {
+                if (bar < progress)
+                    cout << "#";
+                else
+                    cout << "-";
+            }
+
+            if (progress < 100)
+            {
+                cout << "] " << (int)progress << "%\r";
+                cout.flush();
+            }
+            else
+                cout << "] " << (int)progress << "%\n";
+        }
     }
     file.close();
-    cout << "move_edge_orientation generated" << '\n';
 }
 
 void generate_move_UDslice_edge_position()
@@ -104,9 +144,29 @@ void generate_move_UDslice_edge_position()
             }
         }
         file << '\n';
+
+        if (i % 10 == 0 || i ==  NUM_UDSLICE_EDGE_POSITION - 1)
+        {
+            int progress = ((double)(i + 1) / NUM_UDSLICE_EDGE_POSITION) * 100;
+            cout << "generisanje fajla move_UDslice_edge_position \t\t [";
+            for (int bar = 0; bar < 100; bar++)
+            {
+                if (bar < progress)
+                    cout << "#";
+                else
+                    cout << "-";
+            }
+
+            if (progress < 100)
+            {
+                cout << "] " << (int)progress << "%\r";
+                cout.flush();
+            }
+            else
+                cout << "] " << (int)progress << "%\n";
+        }
     }
     file.close();
-    cout << "move_UDslice_edge_position generated" << '\n';
 }
 
 // PHASE 2
@@ -138,9 +198,29 @@ void generate_move_corner_permutation()
             }
         }
         file << '\n';
+
+        if (i % 10 == 0 || i ==  NUM_CORNER_PERMUTATION - 1)
+        {
+            int progress = ((double)(i + 1) / NUM_CORNER_PERMUTATION) * 100;
+            cout << "generisanje fajla move_corner_permutation \t\t [";
+            for (int bar = 0; bar < 100; bar++)
+            {
+                if (bar < progress)
+                    cout << "#";
+                else
+                    cout << "-";
+            }
+
+            if (progress < 100)
+            {
+                cout << "] " << (int)progress << "%\r";
+                cout.flush();
+            }
+            else
+                cout << "] " << (int)progress << "%\n";
+        }
     }
     file.close();
-    cout << "move_corner_permutation generated" << '\n';
 }
 
 void generate_move_UD_edge_permutation()
@@ -185,9 +265,29 @@ void generate_move_UD_edge_permutation()
             }
         }
         file << '\n';
+
+        if (i % 10 == 0 || i ==  NUM_UD_EDGE_PERMUTATION - 1)
+        {
+            int progress = ((double)(i + 1) / NUM_UD_EDGE_PERMUTATION) * 100;
+            cout << "generisanje fajla move_UD_edge_permutation \t\t [";
+            for (int bar = 0; bar < 100; bar++)
+            {
+                if (bar < progress)
+                    cout << "#";
+                else
+                    cout << "-";
+            }
+
+            if (progress < 100)
+            {
+                cout << "] " << (int)progress << "%\r";
+                cout.flush();
+            }
+            else
+                cout << "] " << (int)progress << "%\n";
+        }
     }
     file.close();
-    cout << "move_UD_edge_permutation generated" << '\n';
 }
 
 void generate_move_UDslice_edge_permutation()
@@ -232,7 +332,27 @@ void generate_move_UDslice_edge_permutation()
             }
         }
         file << '\n';
+
+        if (i % 10 == 0 || i ==  NUM_UDSLICE_EDGE_PERMUTATION - 1)
+        {
+            int progress = ((double)(i + 1) / NUM_UDSLICE_EDGE_PERMUTATION) * 100;
+            cout << "generisanje fajla move_UDslice_edge_permutation \t [";
+            for (int bar = 0; bar < 100; bar++)
+            {
+                if (bar < progress)
+                    cout << "#";
+                else
+                    cout << "-";
+            }
+
+            if (progress < 100)
+            {
+                cout << "] " << (int)progress << "%\r";
+                cout.flush();
+            }
+            else
+                cout << "] " << (int)progress << "%\n";
+        }
     }
     file.close();
-    cout << "move_UDslice_edge_permutation generated" << '\n';
 }
