@@ -1,4 +1,4 @@
-# Algoritam za resavanje Rubikove kocke
+# Algoritam za slaganje Rubikove kocke
 Implementacija two phase algoritma Herberta Kosiembe za resavanje Rubikove kocke.
 Algoritam je kombinacija vise njih, a cela ideja moze se naci na Kosiembinoj [zvanicnoj stranici].
 Resenja nisu optimalna po broju poteza, ali program za nekoliko sekundi daje resenja jako bliska optimalnom.
