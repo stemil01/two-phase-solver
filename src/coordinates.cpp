@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "coordinates.hpp"
 #include "moves.hpp"
 using namespace std;
@@ -143,6 +144,27 @@ Cube random_moves(int num_moves)
     cout << '\n';
 
     return cube;
+}
+
+void progress_bar(string message, int current, int total)
+{
+    int progress = ((double)current / total) * 100;
+    cout << message << " [";
+    for (int bar = 0; bar < 100; bar++)
+    {
+        if (bar < progress)
+            cout << "#";
+        else
+            cout << "-";
+    }
+
+    if (progress < 100)
+    {
+        cout << "] " << (int)progress << "%\r";
+        cout.flush();
+    }
+    else
+        cout << "] " << (int)progress << "%\n";
 }
 
 void corner_orientation_to_cubie(int corner_orientation, int cubie_corner_orientation[])

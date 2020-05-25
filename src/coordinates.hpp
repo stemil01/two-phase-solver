@@ -1,6 +1,9 @@
 #ifndef COORDINATES_HPP
 #define COORDINATES_HPP
 
+#include <string>
+using namespace std;
+
 #define NUM_CORNER_ORIENTATION              2187
 #define NUM_EDGE_ORIENTATION                2048 
 #define NUM_UDSLICE_EDGE_POSITION           495
@@ -55,6 +58,8 @@ struct Cube
 Cube input();
 Cube move_cube(Cube cube, int move);
 Cube random_moves(int num_moves);
+
+void progress_bar(string message, int current, int total);
 
 // corner_orientation
 void corner_orientation_to_cubie(int corner_orientation, int cubie_corner_orientation[]);

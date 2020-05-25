@@ -15,6 +15,7 @@ int main()
     bool go_on = true;
     while (go_on)
     {
+        // input();
         Cube cube = random_moves(30);
         improve_search(cube, 5000);
 
