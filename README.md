@@ -15,3 +15,5 @@ Kada vec postoje ti fajlovi za njihovo ucitavanje je potrebno oko 2 minuta i pro
 ## Rezultati
 Jos uvek nisam testirao program kako dolikuje ali za sada deluje da gotovo odmah daje resenja duzine do 26 poteza, prosek mi deluje da je oko 22-23 poteza.
 Resenja prve faze su ocekivano brza jer nema gotovo nikakvog dodatnog racuna, dok se resenja druge faze takodje dosta brzo dobijaju, na moje iznenadjenje.
+
+[zvanicnoj stranici]: http://kociemba.org/cube.htm
