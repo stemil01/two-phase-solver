@@ -1,20 +1,17 @@
 # Algoritam za resavanje Rubikove kocke
-Implementacija two phase algoritma Herberta Kociembe za resavanje Rubikove kocke.
-Algoritam nije optimalan po broju poteza, ali zato daje resenja duzine priblizno optimalnom. 
+Implementacija two phase algoritma Herberta Kosiembe za resavanje Rubikove kocke.
+Algoritam je kombinacija vise njih, a cela ideja moze se naci na Kosiembinoj [zvanicnoj stranici].
+Resenja nisu optimalna po broju poteza, ali za nekoliko sekundi algoritam daje resenja jako bliska optimalnom.
+
+## Pokretanje
+Program je pisan u C++ i za kompajlovanje je koriscen GCC. Komanda za kompajlovanje se nalazi u *Makefile* file i moze se pozvati samo komandom
+```shell
+$ make
+```
+Za funkcionisanje je potrebno nekoliko fajlova koji se nalaze u folderu *resources*.
+Ukoliko vec ne postoje pri prvom koriscenu je potrebno da se generisu i ceo postupak moze da potraje oko 1 sata i zahteva otprilike 7GB RAM-a, a na disku oko 6GB.
+Kada vec postoje ti fajlovi za njihovo ucitavanje je potrebno oko 2 minuta i program zahteva oko 2GB memorije.
 
 ## Rezultati
 Jos uvek nisam testirao program kako dolikuje ali za sada deluje da gotovo odmah daje resenja duzine do 26 poteza, prosek mi deluje da je oko 22-23 poteza.
 Resenja prve faze su ocekivano brza jer nema gotovo nikakvog dodatnog racuna, dok se resenja druge faze takodje dosta brzo dobijaju, na moje iznenadjenje.
-
-## Pokretanje
-Program je kompletno pisan u C++ i za kompajlovanje je koriscen GCC i testiran je na GNU/Linux sistemu, na kome se ocekuje da radi. Nije testirano ali bi verovatno isto radilo na bilo kom Unix sistemu. Da bi se pokrenuo moze se pozvati komandom 
-```shell
-$ make
-```
-Treba napomeniti da sam program zahteva oko **2GB** memorije kada se ucitaju svi podaci i za samo ucitavanje je potrebno oko 1-2 minuta. Ukoliko nema vec generisanih tabela, onda je neophodno generisati ih. Tabele *phase1_pruning* i *phase2_corner_UD_edge* su najzahtevnije. Za prvu je potrebno oko 20 minuta za pravljenje i program uzima oko **7GB** memorije u toku rada, za drugu je potrebno oko 10 minuta i potrebno je oko **6GB** memorije.
-Kada su tabele kreirane opet znacajniju kolicinu memorije uzimaju vec pomenute dve, redom **1.5GB** i **4.6GB**. 
-Ovo naravno zvuci preterano i cudno, ali pokusao sam da stedim gde kod sam mogao da bi algoritam bio sto jednostavniji, to je placeno memorijom. Originalna verzija koristi simetrije kocke koje znacajno smanjuju kolicinu podataka potrebnih za cuvanje.
-
-Celokupna ideja je preuzeta, kao sto je receno, od Herberta Kociembe koji je na svom zvanicnom sajtu detaljno objasnio rad ovog algoritma ([zvanicna stranica])
-
-[zvanicna stranica]: http://kociemba.org/cube.htm
