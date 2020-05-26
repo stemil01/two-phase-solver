@@ -13,6 +13,6 @@ Ukoliko vec ne postoje, pri prvom koriscenu je potrebno da se generisu i ceo pos
 Kada vec postoje ti fajlovi za njihovo ucitavanje je potrebno oko 2 minuta i program zahteva oko 2GB memorije.
 
 ## Rezultati
-Na 100 slucajno generisanih pozicija kocke od 100 poteza prosecna duzina resenja bez ikakvih dodataka je 22.9 poteza, dok se dodavanjem vremena ona povoljsava tako sto se vec za 2 sekunde prosek smanjuje ispod 20 poteza (tacnije 19.96 na ovom testu).
+Na 100 slucajno generisanih pozicija kocke od 100 poteza prosecna duzina resenja bez ikakvih dodataka je 22.9 poteza, dok se dodavanjem vremena ona poboljsava tako sto se vec za 2 sekunde prosek smanjuje ispod 20 poteza (tacnije 19.96 na ovom testu).
 
 [zvanicnoj stranici]: http://kociemba.org/cube.htm
