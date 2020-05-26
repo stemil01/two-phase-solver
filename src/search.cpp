@@ -186,7 +186,7 @@ void random_moves_search(Cube cube, int current_depth, int depth, int prev, int 
     }
 }
 
-void improve_search(Cube cube, int time_limit)
+int improved_search(Cube cube, int time_limit)
 {
     // problem nastaje ako se resenje faze zavrsava potezom iste strane sa pocetkom resenja faze 2
     vector<int> solution;
@@ -210,4 +210,6 @@ void improve_search(Cube cube, int time_limit)
         depth++;
     }
     cout << "zavrsena pretraga, do dubine " << depth - 1 << '\n';
+    
+    return limit;
 }

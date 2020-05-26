@@ -123,7 +123,7 @@ Cube move_cube(Cube cube, int move)
 
 Cube random_moves(int num_moves)
 {
-    srand(time(NULL));
+    // srand(time(NULL));
 
     Cube cube;
     cube.corner_orientation = 0;
