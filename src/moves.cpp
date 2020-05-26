@@ -223,7 +223,7 @@ void print_move(int move)
             output = "R2";
             break;
         case 2:
-            output = "R3";
+            output = "R'";
             break;
         case 3:
             output = "F";
@@ -232,7 +232,7 @@ void print_move(int move)
             output = "F2";
             break;
         case 5:
-            output = "F3";
+            output = "F'";
             break;
         case 6:
             output = "L";
@@ -241,7 +241,7 @@ void print_move(int move)
             output = "L2";
             break;
         case 8:
-            output = "L3";
+            output = "L'";
             break;
         case 9:
             output = "B";
@@ -250,7 +250,7 @@ void print_move(int move)
             output = "B2";
             break;
         case 11:
-            output = "B3";
+            output = "B'";
             break;
         case 12:
             output = "U";
@@ -259,7 +259,7 @@ void print_move(int move)
             output = "U2";
             break;
         case 14:
-            output = "U3";
+            output = "U'";
             break;
         case 15:
             output = "D";
@@ -268,7 +268,7 @@ void print_move(int move)
             output = "D2";
             break;
         case 17:
-            output = "D3";
+            output = "D'";
             break;
         default:
             break;
