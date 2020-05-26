@@ -209,7 +209,7 @@ int improved_search(Cube cube, int time_limit)
 
         depth++;
     }
-    cout << "zavrsena pretraga, do dubine " << depth - 1 << '\n';
+    cout << "------------------------------------------" << '\n';
     
     return limit;
 }
