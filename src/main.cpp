@@ -17,13 +17,13 @@ int main()
     // test_seach();
     // test_improved_search(500);
 
-    bool go_on = true;
-    while (go_on)
+    bool idi_dalje = true;
+    while (idi_dalje)
     {  
         // input(); // za rucni unos
         Cube cube = random_moves(30); // za generisanje proizvoljne pozicije
         improved_search(cube, 2000);
 
-        cin >> go_on;
+        cin >> idi_dalje;
     }
 }
