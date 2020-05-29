@@ -46,7 +46,8 @@ void dfs(int corner_permutation, int UD_edge_permutation, int UDslice_edge_permu
     {
         if (corner_permutation == 0 && UD_edge_permutation == 0 && UDslice_edge_permutation == 0)
         {
-            (*phase2_solution).push_back(prev);
+            if (current_depth > 0)
+                (*phase2_solution).push_back(prev);
             *solved = true;
         }
     }
@@ -125,24 +126,27 @@ bool search(Cube cube, int limit, vector<int> *solution)
 
         // ovo provera da li se resenje prve faze zavrsava potezom iste strane
         // kao i pocetak resenja druge faze
-        int base1 = phase1_solution.back() / 3;
-        int rem1 = phase1_solution.back() % 3;
-        int base2 = phase2_solution.back() / 3;
-        int rem2 = phase2_solution.back() % 3;
-        if (base1 == base2)
+        if (phase1_solution.size() > 0 && phase2_solution.size() > 0)
         {
-            int rem_new = rem1 + rem2;
-            if (rem_new == 2)
-                (*solution).pop_back();
-            else
+            int base1 = phase1_solution.back() / 3;
+            int rem1 = phase1_solution.back() % 3;
+            int base2 = phase2_solution.back() / 3;
+            int rem2 = phase2_solution.back() % 3;
+            if (base1 == base2)
             {
-                if (rem_new == 0 || rem_new == 1)
-                    rem_new++;
+                int rem_new = rem1 + rem2;
+                if (rem_new == 2)
+                    (*solution).pop_back();
                 else
-                    rem_new %= 3;
-                (*solution)[(*solution).size() - 1] = 3 * base1 + rem_new;
+                {
+                    if (rem_new == 0 || rem_new == 1)
+                        rem_new++;
+                    else
+                        rem_new %= 3;
+                    (*solution)[(*solution).size() - 1] = 3 * base1 + rem_new;
+                }
+                phase2_solution.pop_back();
             }
-            phase2_solution.pop_back();
         }
 
         for (int i = phase2_solution.size() - 1; i >= 0; i--)
