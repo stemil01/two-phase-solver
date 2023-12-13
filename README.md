@@ -1,19 +1,29 @@
-# Algoritam za slaganje Rubikove kocke
-Implementacija two phase algoritma Herberta Kosiembe za resavanje Rubikove kocke.
-Algoritam je kombinacija vise njih, a cela ideja moze se naci na Kosiembinoj [zvanicnoj stranici], dok detaljniji opisi ove konkretne implementacije [ovde].
-Resenja nisu uvek optimalna po broju poteza, ali program za nekoliko sekundi daje resenja jako bliska optimalnom.
+# Rubik's cube solver
+This is an implementation of a two-phase algorithm developed by Herbert Kociemba for solving a Rubik's cube, providing near-optimal solutions in real time.
+The algorithm is a combination several ideas mainly based on the concepts presented in [Kociemba's page].
+Detailed explanation can be found [here] (in Serbian).
 
-## Pokretanje
-Program je pisan u C++ i za kompajlovanje je koriscen GCC. Komanda za kompajlovanje se nalazi u fajlu *Makefile* i moze se pozvati komandom
-```shell
-$ make
-```
-Za funkcionisanje je potrebno nekoliko fajlova koji se nalaze u folderu *resources*.
-Ukoliko vec ne postoje, pri prvom koriscenu je potrebno da se generisu i ceo postupak moze da potraje oko 1 sat i zahteva otprilike 7GB RAM-a, a na disku oko 6GB.
-Kada vec postoje ti fajlovi za njihovo ucitavanje je potrebno oko 2 minuta i program zahteva oko 2GB memorije.
+## Run
+The program is written in C++ using GCC for compilation.
+Compilation process can be invoked using ```make```.
 
-## Rezultati
-Na 100 slucajno generisanih pozicija kocke od 100 poteza prosecna duzina resenja bez ikakvih dodataka je 22.9 poteza, dok se dodavanjem vremena ona poboljsava tako sto se vec za 2 sekunde prosek smanjuje ispod 20 poteza (tacnije 19.96 na ovom testu).
+During the first run, the user is ecountered with a promt to generate required files (heuristic tables).
+They are necessary for program to work and will be created in *resources* directory.
+The process of creation can take some time and will require about 6GB both of working memory and storage.
+When formed, the tables are loaded and demand about 2GB of working memory while active.
 
-[zvanicnoj stranici]: http://kociemba.org/cube.htm
-[ovde]: https://www.mg.edu.rs/uploads/files/dokumenta/najbolji-maturski/stefan-milenkovic.pdf
+## Results
+On 100 randomly generated cubes, the results are the following.
+
+| Time                  | Shortest solution | Longest solution  | Average solution  |
+| ----------            | ----              | ------            | -------           |
+| 0.5s                  | 17                | 22                | 20.17             |
+| 1s                    | 17                | 21                | 20.09             |
+| 2s                    | 17                | 21                | 19.96             |
+| 5s                    | 17                | 21                | 19.73             |
+
+Time parameter represent the amount of time given to the program to find solution.
+With more than 2s, the average solution length is less than 20 moves (which is theoretical maximum).
+
+[Kociemba's page]: http://kociemba.org/cube.htm
+[here]: https://www.mg.edu.rs/uploads/files/dokumenta/najbolji-maturski/stefan-milenkovic.pdf
